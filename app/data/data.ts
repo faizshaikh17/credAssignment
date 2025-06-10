@@ -1,412 +1,423 @@
 
 export default function data() {
-    const data = {
-        "credit_cards": [
-            {
-                "card_id": "cc001",
-                "card_name": "HDFC Regalia Credit Card",
-                "issuer": "HDFC Bank",
-                "category": "Premium",
-                "joining_fee": 2500,
-                "annual_fee": 2500,
-                "welcome_benefits": [
-                    "2500 reward points on first transaction within 30 days",
-                    "Complimentary airport lounge access (domestic & international)"
-                ],
-                "rewards": {
-                    "domestic_spends": "4 points per ₹150",
-                    "international_spends": "4 points per ₹150"
-                },
-                "features": [
-                    "Priority Pass membership",
-                    "12 complimentary domestic lounge visits/year",
-                    "6 international lounge visits/year",
-                    "2% forex markup"
-                ],
-                "eligibility": {
-                    "min_age": 21,
-                    "max_age": 60,
-                    "min_income": 1200000,
-                    "credit_score": 750
-                },
-                "apply_url": "https://www.hdfcbank.com/personal/pay/cards/credit-cards/regalia-credit-card"
+    const cardData = [
+        {
+            "card_id": "cc001",
+            "card_name": "HDFC Regalia Credit Card",
+            "issuer": "HDFC Bank",
+            "category": "Premium",
+            "joining_fee": 2500,
+            "annual_fee": 2500,
+            "welcome_benefits": [
+                "2500 reward points on first transaction within 30 days",
+                "Complimentary airport lounge access (domestic & international)"
+            ],
+            "rewards": {
+                "domestic_spends": "4 points per ₹150",
+                "international_spends": "4 points per ₹150"
             },
-            {
-                "card_id": "cc002",
-                "card_name": "Axis Bank Magnus Credit Card",
-                "issuer": "Axis Bank",
-                "category": "Super Premium",
-                "joining_fee": 12500,
-                "annual_fee": 12500,
-                "welcome_benefits": [
-                    "Voucher worth ₹12,500 (Luxe, Yatra, Postcard Hotels, etc.)"
-                ],
-                "rewards": {
-                    "domestic_spends": "12 points per ₹200",
-                    "international_spends": "12 points per ₹200"
-                },
-                "features": [
-                    "Unlimited domestic lounge access (on ₹50k spend/quarter)",
-                    "12 international lounge visits/year",
-                    "25% off on select dining",
-                    "BookMyShow: Buy 1 Get 1 (up to ₹500/month)"
-                ],
-                "eligibility": {
-                    "min_age": 18,
-                    "max_age": 70,
-                    "min_income": 1800000,
-                    "credit_score": 760
-                },
-                "apply_url": "https://www.axisbank.com/retail/cards/credit-card/axis-bank-magnus-card"
+            "features": [
+                "Priority Pass membership",
+                "12 complimentary domestic lounge visits/year",
+                "6 international lounge visits/year",
+                "2% forex markup"
+            ],
+            "eligibility": {
+                "min_age": 21,
+                "max_age": 60,
+                "min_income": 1200000,
+                "credit_score": 750
             },
-            {
-                "card_id": "cc003",
-                "card_name": "SBI Elite Credit Card",
-                "issuer": "SBI Card",
-                "category": "Premium",
-                "joining_fee": 4999,
-                "annual_fee": 4999,
-                "welcome_benefits": [
-                    "Gift voucher worth ₹5000 (Pantaloons, Yatra, etc.)",
-                    "Complimentary movie tickets worth ₹6,000/year"
-                ],
-                "rewards": {
-                    "domestic_spends": "2 points per ₹100",
-                    "international_spends": "5 points per ₹100"
-                },
-                "features": [
-                    "Club Vistara Silver membership",
-                    "6 international lounge visits/year",
-                    "8 domestic lounge visits/year",
-                    "1% fuel surcharge waiver"
-                ],
-                "eligibility": {
-                    "min_age": 21,
-                    "max_age": 65,
-                    "min_income": 1000000,
-                    "credit_score": 740
-                },
-                "apply_url": "https://www.sbicard.com/en/personal/credit-cards/travel/sbi-card-elite.page"
+            "apply_url": "https://www.hdfcbank.com/personal/pay/cards/credit-cards/regalia-credit-card"
+        },
+        {
+            "card_id": "cc002",
+            "card_name": "Axis Bank Magnus Credit Card",
+            "issuer": "Axis Bank",
+            "category": "Super Premium",
+            "joining_fee": 12500,
+            "annual_fee": 12500,
+            "welcome_benefits": [
+                "Voucher worth ₹12,500 (Luxe, Yatra, Postcard Hotels, etc.)"
+            ],
+            "rewards": {
+                "domestic_spends": "12 points per ₹200",
+                "international_spends": "12 points per ₹200"
             },
-            {
-                "card_id": "cc004",
-                "card_name": "ICICI Bank Coral Credit Card",
-                "issuer": "ICICI Bank",
-                "category": "Entry Level",
-                "joining_fee": 500,
-                "annual_fee": 500,
-                "welcome_benefits": [
-                    "2,000 reward points on first spend",
-                    "1 complimentary railway lounge visit/quarter"
-                ],
-                "rewards": {
-                    "domestic_spends": "2 points per ₹100",
-                    "international_spends": "4 points per ₹100"
-                },
-                "features": [
-                    "1 free movie ticket/month (BookMyShow, up to ₹100)",
-                    "Up to 15% off on dining",
-                    "1% fuel surcharge waiver"
-                ],
-                "eligibility": {
-                    "min_age": 21,
-                    "max_age": 60,
-                    "min_income": 250000,
-                    "credit_score": 700
-                },
-                "apply_url": "https://www.icicibank.com/Personal-Banking/cards/Consumer-Cards/Credit-Card/coral-card"
+            "features": [
+                "Unlimited domestic lounge access (on ₹50k spend/quarter)",
+                "12 international lounge visits/year",
+                "25% off on select dining",
+                "BookMyShow: Buy 1 Get 1 (up to ₹500/month)"
+            ],
+            "eligibility": {
+                "min_age": 18,
+                "max_age": 70,
+                "min_income": 1800000,
+                "credit_score": 760
             },
-            {
-                "card_id": "cc005",
-                "card_name": "American Express Platinum Travel Credit Card",
-                "issuer": "American Express",
-                "category": "Travel",
-                "joining_fee": 3500,
-                "annual_fee": 5000,
-                "welcome_benefits": [
-                    "Welcome gift worth ₹4,000 (Amex Travel voucher)"
-                ],
-                "rewards": {
-                    "domestic_spends": "1 point per ₹50",
-                    "milestone_spends": "₹1.9L spend: ₹7,700 Taj voucher; ₹4L spend: ₹11,800 Taj voucher"
-                },
-                "features": [
-                    "4 complimentary domestic lounge visits/year",
-                    "Exclusive Amex offers"
-                ],
-                "eligibility": {
-                    "min_age": 18,
-                    "max_age": 70,
-                    "min_income": 600000,
-                    "credit_score": 720
-                },
-                "apply_url": "https://www.americanexpress.com/in/credit-cards/platinum-travel/"
-            },
-            {
-                "card_id": "cc006",
-                "card_name": "HDFC Millennia Credit Card",
-                "issuer": "HDFC Bank",
-                "category": "Cashback",
-                "joining_fee": 1000,
-                "annual_fee": 1000,
-                "welcome_benefits": [
-                    "1,000 CashPoints on first spend"
-                ],
-                "rewards": {
-                    "online_spends": "5% cashback on Amazon, Flipkart, BookMyShow, Myntra, Swiggy, Zomato",
-                    "other_spends": "1% cashback"
-                },
-                "features": [
-                    "8 complimentary domestic lounge visits/year",
-                    "1% fuel surcharge waiver"
-                ],
-                "eligibility": {
-                    "min_age": 21,
-                    "max_age": 60,
-                    "min_income": 360000,
-                    "credit_score": 720
-                },
-                "apply_url": "https://www.hdfcbank.com/personal/pay/cards/credit-cards/millennia-credit-card"
-            },
-            {
-                "card_id": "cc007",
-                "card_name": "Axis Bank ACE Credit Card",
-                "issuer": "Axis Bank",
-                "category": "Cashback",
-                "joining_fee": 499,
-                "annual_fee": 499,
-                "welcome_benefits": [
-                    "₹500 cashback on first transaction (T&C apply)"
-                ],
-                "rewards": {
-                    "bill_payments": "5% cashback on Google Pay utility payments",
-                    "other_spends": "2% cashback"
-                },
-                "features": [
-                    "4 complimentary domestic lounge visits/year",
-                    "1% fuel surcharge waiver"
-                ],
-                "eligibility": {
-                    "min_age": 18,
-                    "max_age": 70,
-                    "min_income": 300000,
-                    "credit_score": 720
-                },
-                "apply_url": "https://www.axisbank.com/retail/cards/credit-card/axis-bank-ace-credit-card"
-            },
-            {
-                "card_id": "cc008",
-                "card_name": "Standard Chartered Manhattan Platinum Credit Card",
-                "issuer": "Standard Chartered",
-                "category": "Shopping",
-                "joining_fee": 999,
-                "annual_fee": 999,
-                "welcome_benefits": [
-                    "₹2,000 cashback on first transaction"
-                ],
-                "rewards": {
-                    "supermarkets": "5% cashback at supermarkets",
-                    "other_spends": "3 points per ₹150"
-                },
-                "features": [
-                    "20% off at partner restaurants",
-                    "1% fuel surcharge waiver"
-                ],
-                "eligibility": {
-                    "min_age": 21,
-                    "max_age": 65,
-                    "min_income": 600000,
-                    "credit_score": 720
-                },
-                "apply_url": "https://www.sc.com/in/credit-cards/manhattan/"
-            },
-            {
-                "card_id": "cc009",
-                "card_name": "Citi Rewards Credit Card",
-                "issuer": "Citibank",
-                "category": "Rewards",
-                "joining_fee": 1000,
-                "annual_fee": 1000,
-                "welcome_benefits": [
-                    "2,500 bonus points on first spend within 30 days"
-                ],
-                "rewards": {
-                    "shopping": "10X points on apparel & department stores",
-                    "other_spends": "1 point per ₹125"
-                },
-                "features": [
-                    "No expiry on reward points",
-                    "Contactless payments"
-                ],
-                "eligibility": {
-                    "min_age": 21,
-                    "max_age": 65,
-                    "min_income": 300000,
-                    "credit_score": 720
-                },
-                "apply_url": "https://www.online.citibank.co.in/products-services/credit-cards/rewards/rewards-card.htm"
-            },
-            {
-                "card_id": "cc010",
-                "card_name": "IndusInd Bank Platinum Aura Edge Credit Card",
-                "issuer": "IndusInd Bank",
-                "category": "Rewards",
-                "joining_fee": 500,
-                "annual_fee": 500,
-                "welcome_benefits": [
-                    "Welcome gift vouchers worth ₹1,000"
-                ],
-                "rewards": {
-                    "shopping": "4 points per ₹100 on select categories",
-                    "other_spends": "1 point per ₹100"
-                },
-                "features": [
-                    "Fuel surcharge waiver",
-                    "Personal air accident insurance"
-                ],
-                "eligibility": {
-                    "min_age": 21,
-                    "max_age": 65,
-                    "min_income": 300000,
-                    "credit_score": 700
-                },
-                "apply_url": "https://www.indusind.com/in/en/personal/cards/credit-card/platinum-aura-edge.html"
-            },
-            {
-                "card_id": "cc011",
-                "card_name": "HSBC Platinum Credit Card",
-                "issuer": "HSBC",
-                "category": "Rewards",
-                "joining_fee": 0,
-                "annual_fee": 0,
-                "welcome_benefits": [
-                    "₹2,500 Amazon voucher on minimum spend",
-                    "10% cashback on first 3 months (up to ₹2,000)"
-                ],
-                "rewards": {
-                    "dining": "5X rewards on dining, hotels, telecom",
-                    "other_spends": "2 points per ₹150"
-                },
-                "features": [
-                    "3 complimentary airport lounge visits/year",
-                    "Fuel surcharge waiver"
-                ],
-                "eligibility": {
-                    "min_age": 18,
-                    "max_age": 65,
-                    "min_income": 400000,
-                    "credit_score": 720
-                },
-                "apply_url": "https://www.hsbc.co.in/credit-cards/products/platinum/"
-            },
-            {
-                "card_id": "cc012",
-                "card_name": "Kotak Mahindra Bank Royale Signature Credit Card",
-                "issuer": "Kotak Mahindra Bank",
-                "category": "Premium",
-                "joining_fee": 999,
-                "annual_fee": 999,
-                "welcome_benefits": [
-                    "2,000 reward points on first spend"
-                ],
-                "rewards": {
-                    "domestic_spends": "4 points per ₹150",
-                    "international_spends": "4 points per ₹150"
-                },
-                "features": [
-                    "2 complimentary domestic lounge visits/quarter",
-                    "Railway surcharge waiver"
-                ],
-                "eligibility": {
-                    "min_age": 21,
-                    "max_age": 65,
-                    "min_income": 240000,
-                    "credit_score": 700
-                },
-                "apply_url": "https://www.kotak.com/en/personal-banking/cards/credit-cards/royale-signature-credit-card.html"
-            },
-            {
-                "card_id": "cc013",
-                "card_name": "AU Bank Zenith Credit Card",
-                "issuer": "AU Small Finance Bank",
-                "category": "Super Premium",
-                "joining_fee": 7999,
-                "annual_fee": 7999,
-                "welcome_benefits": [
-                    "Taj voucher worth ₹5,000"
-                ],
-                "rewards": {
-                    "domestic_spends": "20 reward points per ₹100 on dining, international spends",
-                    "other_spends": "10 reward points per ₹100"
-                },
-                "features": [
-                    "8 international & unlimited domestic lounge visits/year",
-                    "Low forex markup (1.99%)"
-                ],
-                "eligibility": {
-                    "min_age": 21,
-                    "max_age": 65,
-                    "min_income": 1500000,
-                    "credit_score": 750
-                },
-                "apply_url": "https://www.aubank.in/personal-banking/cards/credit-card/zenith-credit-card"
-            },
-            {
-                "card_id": "cc014",
-                "card_name": "IDFC FIRST Wealth Credit Card",
-                "issuer": "IDFC FIRST Bank",
-                "category": "Lifetime Free",
-                "joining_fee": 0,
-                "annual_fee": 0,
-                "welcome_benefits": [
-                    "Welcome vouchers worth ₹500"
-                ],
-                "rewards": {
-                    "domestic_spends": "6X points on online spends",
-                    "other_spends": "3X points on offline spends"
-                },
-                "features": [
-                    "4 complimentary domestic lounge visits/quarter",
-                    "Low forex markup (1.5%)"
-                ],
-                "eligibility": {
-                    "min_age": 21,
-                    "max_age": 65,
-                    "min_income": 360000,
-                    "credit_score": 720
-                },
-                "apply_url": "https://www.idfcfirstbank.com/credit-card/wealth-credit-card"
-            },
-            {
-                "card_id": "cc015",
-                "card_name": "RBL Bank Platinum Maxima Credit Card",
-                "issuer": "RBL Bank",
-                "category": "Rewards",
-                "joining_fee": 2000,
-                "annual_fee": 2000,
-                "welcome_benefits": [
-                    "8,000 reward points on first spend"
-                ],
-                "rewards": {
-                    "domestic_spends": "2 points per ₹100",
-                    "milestone_spends": "20,000 bonus points on annual spends of ₹3.5 lakh"
-                },
-                "features": [
-                    "2 complimentary domestic lounge visits/quarter",
-                    "Fuel surcharge waiver"
-                ],
-                "eligibility": {
-                    "min_age": 21,
-                    "max_age": 65,
-                    "min_income": 300000,
-                    "credit_score": 700
-                },
-                "apply_url": "https://www.rblbank.com/product/credit-cards/platinum-maxima-credit-card"
-            }
-        ],
-        "last_updated": "2025-06-10T13:45:00Z",
-        "source": "Official bank sites, Paisabazaar.com, CardExpert.in"
-    }
+            "apply_url": "https://www.axisbank.com/retail/cards/credit-card/axis-bank-magnus-card",
+            "image": "/Axis-Atlas-1.png.webp"
 
-    return data
+        },
+        {
+            "card_id": "cc003",
+            "card_name": "SBI Elite Credit Card",
+            "issuer": "SBI Card",
+            "category": "Premium",
+            "joining_fee": 4999,
+            "annual_fee": 4999,
+            "welcome_benefits": [
+                "Gift voucher worth ₹5000 (Pantaloons, Yatra, etc.)",
+                "Complimentary movie tickets worth ₹6,000/year"
+            ],
+            "rewards": {
+                "domestic_spends": "2 points per ₹100",
+                "international_spends": "5 points per ₹100"
+            },
+            "features": [
+                "Club Vistara Silver membership",
+                "6 international lounge visits/year",
+                "8 domestic lounge visits/year",
+                "1% fuel surcharge waiver"
+            ],
+            "eligibility": {
+                "min_age": 21,
+                "max_age": 65,
+                "min_income": 1000000,
+                "credit_score": 740
+            },
+            "apply_url": "https://www.sbicard.com/en/personal/credit-cards/travel/sbi-card-elite.page",
+            "image": "/Axis-Atlas-1.png.webp"
+        },
+        {
+            "card_id": "cc004",
+            "card_name": "ICICI Bank Coral Credit Card",
+            "issuer": "ICICI Bank",
+            "category": "Entry Level",
+            "joining_fee": 500,
+            "annual_fee": 500,
+            "welcome_benefits": [
+                "2,000 reward points on first spend",
+                "1 complimentary railway lounge visit/quarter"
+            ],
+            "rewards": {
+                "domestic_spends": "2 points per ₹100",
+                "international_spends": "4 points per ₹100"
+            },
+            "features": [
+                "1 free movie ticket/month (BookMyShow, up to ₹100)",
+                "Up to 15% off on dining",
+                "1% fuel surcharge waiver"
+            ],
+            "eligibility": {
+                "min_age": 21,
+                "max_age": 60,
+                "min_income": 250000,
+                "credit_score": 700
+            },
+            "apply_url": "https://www.icicibank.com/Personal-Banking/cards/Consumer-Cards/Credit-Card/coral-card",
+            "image": "/Axis-Atlas-1.png.webp"
+        },
+        {
+            "card_id": "cc005",
+            "card_name": "American Express Platinum Travel Credit Card",
+            "issuer": "American Express",
+            "category": "Travel",
+            "joining_fee": 3500,
+            "annual_fee": 5000,
+            "welcome_benefits": [
+                "Welcome gift worth ₹4,000 (Amex Travel voucher)"
+            ],
+            "rewards": {
+                "domestic_spends": "1 point per ₹50",
+                "milestone_spends": "₹1.9L spend: ₹7,700 Taj voucher; ₹4L spend: ₹11,800 Taj voucher"
+            },
+            "features": [
+                "4 complimentary domestic lounge visits/year",
+                "Exclusive Amex offers"
+            ],
+            "eligibility": {
+                "min_age": 18,
+                "max_age": 70,
+                "min_income": 600000,
+                "credit_score": 720
+            },
+            "apply_url": "https://www.americanexpress.com/in/credit-cards/platinum-travel/",
+            "image": "/Axis-Atlas-1.png.webp"
+        },
+        {
+            "card_id": "cc006",
+            "card_name": "HDFC Millennia Credit Card",
+            "issuer": "HDFC Bank",
+            "category": "Cashback",
+            "joining_fee": 1000,
+            "annual_fee": 1000,
+            "welcome_benefits": [
+                "1,000 CashPoints on first spend"
+            ],
+            "rewards": {
+                "online_spends": "5% cashback on Amazon, Flipkart, BookMyShow, Myntra, Swiggy, Zomato",
+                "other_spends": "1% cashback"
+            },
+            "features": [
+                "8 complimentary domestic lounge visits/year",
+                "1% fuel surcharge waiver"
+            ],
+            "eligibility": {
+                "min_age": 21,
+                "max_age": 60,
+                "min_income": 360000,
+                "credit_score": 720
+            },
+            "apply_url": "https://www.hdfcbank.com/personal/pay/cards/credit-cards/millennia-credit-card",
+            "image": "/Axis-Atlas-1.png.webp"
+        },
+        {
+            "card_id": "cc007",
+            "card_name": "Axis Bank ACE Credit Card",
+            "issuer": "Axis Bank",
+            "category": "Cashback",
+            "joining_fee": 499,
+            "annual_fee": 499,
+            "welcome_benefits": [
+                "₹500 cashback on first transaction (T&C apply)"
+            ],
+            "rewards": {
+                "bill_payments": "5% cashback on Google Pay utility payments",
+                "other_spends": "2% cashback"
+            },
+            "features": [
+                "4 complimentary domestic lounge visits/year",
+                "1% fuel surcharge waiver"
+            ],
+            "eligibility": {
+                "min_age": 18,
+                "max_age": 70,
+                "min_income": 300000,
+                "credit_score": 720
+            },
+            "apply_url": "https://www.axisbank.com/retail/cards/credit-card/axis-bank-ace-credit-card",
+            "image": "/Axis-Atlas-1.png.webp"
+        },
+        {
+            "card_id": "cc008",
+            "card_name": "Standard Chartered Manhattan Platinum Credit Card",
+            "issuer": "Standard Chartered",
+            "category": "Shopping",
+            "joining_fee": 999,
+            "annual_fee": 999,
+            "welcome_benefits": [
+                "₹2,000 cashback on first transaction"
+            ],
+            "rewards": {
+                "supermarkets": "5% cashback at supermarkets",
+                "other_spends": "3 points per ₹150"
+            },
+            "features": [
+                "20% off at partner restaurants",
+                "1% fuel surcharge waiver"
+            ],
+            "eligibility": {
+                "min_age": 21,
+                "max_age": 65,
+                "min_income": 600000,
+                "credit_score": 720
+            },
+            "apply_url": "https://www.sc.com/in/credit-cards/manhattan/",
+            "image": "/Axis-Atlas-1.png.webp"
+        },
+        {
+            "card_id": "cc009",
+            "card_name": "Citi Rewards Credit Card",
+            "issuer": "Citibank",
+            "category": "Rewards",
+            "joining_fee": 1000,
+            "annual_fee": 1000,
+            "welcome_benefits": [
+                "2,500 bonus points on first spend within 30 days"
+            ],
+            "rewards": {
+                "shopping": "10X points on apparel & department stores",
+                "other_spends": "1 point per ₹125"
+            },
+            "features": [
+                "No expiry on reward points",
+                "Contactless payments"
+            ],
+            "eligibility": {
+                "min_age": 21,
+                "max_age": 65,
+                "min_income": 300000,
+                "credit_score": 720
+            },
+            "apply_url": "https://www.online.citibank.co.in/products-services/credit-cards/rewards/rewards-card.htm",
+            "image": "/Axis-Atlas-1.png.webp"
+        },
+        {
+            "card_id": "cc010",
+            "card_name": "IndusInd Bank Platinum Aura Edge Credit Card",
+            "issuer": "IndusInd Bank",
+            "category": "Rewards",
+            "joining_fee": 500,
+            "annual_fee": 500,
+            "welcome_benefits": [
+                "Welcome gift vouchers worth ₹1,000"
+            ],
+            "rewards": {
+                "shopping": "4 points per ₹100 on select categories",
+                "other_spends": "1 point per ₹100"
+            },
+            "features": [
+                "Fuel surcharge waiver",
+                "Personal air accident insurance"
+            ],
+            "eligibility": {
+                "min_age": 21,
+                "max_age": 65,
+                "min_income": 300000,
+                "credit_score": 700
+            },
+            "apply_url": "https://www.indusind.com/in/en/personal/cards/credit-card/platinum-aura-edge.html",
+            "image": "/Axis-Atlas-1.png.webp"
+        },
+        {
+            "card_id": "cc011",
+            "card_name": "HSBC Platinum Credit Card",
+            "issuer": "HSBC",
+            "category": "Rewards",
+            "joining_fee": 0,
+            "annual_fee": 0,
+            "welcome_benefits": [
+                "₹2,500 Amazon voucher on minimum spend",
+                "10% cashback on first 3 months (up to ₹2,000)"
+            ],
+            "rewards": {
+                "dining": "5X rewards on dining, hotels, telecom",
+                "other_spends": "2 points per ₹150"
+            },
+            "features": [
+                "3 complimentary airport lounge visits/year",
+                "Fuel surcharge waiver"
+            ],
+            "eligibility": {
+                "min_age": 18,
+                "max_age": 65,
+                "min_income": 400000,
+                "credit_score": 720
+            },
+            "apply_url": "https://www.hsbc.co.in/credit-cards/products/platinum/",
+            "image": "/Axis-Atlas-1.png.webp"
+        },
+        {
+            "card_id": "cc012",
+            "card_name": "Kotak Mahindra Bank Royale Signature Credit Card",
+            "issuer": "Kotak Mahindra Bank",
+            "category": "Premium",
+            "joining_fee": 999,
+            "annual_fee": 999,
+            "welcome_benefits": [
+                "2,000 reward points on first spend"
+            ],
+            "rewards": {
+                "domestic_spends": "4 points per ₹150",
+                "international_spends": "4 points per ₹150"
+            },
+            "features": [
+                "2 complimentary domestic lounge visits/quarter",
+                "Railway surcharge waiver"
+            ],
+            "eligibility": {
+                "min_age": 21,
+                "max_age": 65,
+                "min_income": 240000,
+                "credit_score": 700
+            },
+            "apply_url": "https://www.kotak.com/en/personal-banking/cards/credit-cards/royale-signature-credit-card.html",
+            "image": "/Axis-Atlas-1.png.webp"
+        },
+        {
+            "card_id": "cc013",
+            "card_name": "AU Bank Zenith Credit Card",
+            "issuer": "AU Small Finance Bank",
+            "category": "Super Premium",
+            "joining_fee": 7999,
+            "annual_fee": 7999,
+            "welcome_benefits": [
+                "Taj voucher worth ₹5,000"
+            ],
+            "rewards": {
+                "domestic_spends": "20 reward points per ₹100 on dining, international spends",
+                "other_spends": "10 reward points per ₹100"
+            },
+            "features": [
+                "8 international & unlimited domestic lounge visits/year",
+                "Low forex markup (1.99%)"
+            ],
+            "eligibility": {
+                "min_age": 21,
+                "max_age": 65,
+                "min_income": 1500000,
+                "credit_score": 750
+            },
+            "apply_url": "https://www.aubank.in/personal-banking/cards/credit-card/zenith-credit-card",
+            "image": "/Axis-Atlas-1.png.webp"
+        },
+        {
+            "card_id": "cc014",
+            "card_name": "IDFC FIRST Wealth Credit Card",
+            "issuer": "IDFC FIRST Bank",
+            "category": "Lifetime Free",
+            "joining_fee": 0,
+            "annual_fee": 0,
+            "welcome_benefits": [
+                "Welcome vouchers worth ₹500"
+            ],
+            "rewards": {
+                "domestic_spends": "6X points on online spends",
+                "other_spends": "3X points on offline spends"
+            },
+            "features": [
+                "4 complimentary domestic lounge visits/quarter",
+                "Low forex markup (1.5%)"
+            ],
+            "eligibility": {
+                "min_age": 21,
+                "max_age": 65,
+                "min_income": 360000,
+                "credit_score": 720
+            },
+            "apply_url": "https://www.idfcfirstbank.com/credit-card/wealth-credit-card",
+            "image": "/Axis-Atlas-1.png.webp"
+        },
+        {
+            "card_id": "cc015",
+            "card_name": "RBL Bank Platinum Maxima Credit Card",
+            "issuer": "RBL Bank",
+            "category": "Rewards",
+            "joining_fee": 2000,
+            "annual_fee": 2000,
+            "welcome_benefits": [
+                "8,000 reward points on first spend"
+            ],
+            "rewards": {
+                "domestic_spends": "2 points per ₹100",
+                "milestone_spends": "20,000 bonus points on annual spends of ₹3.5 lakh"
+            },
+            "features": [
+                "2 complimentary domestic lounge visits/quarter",
+                "Fuel surcharge waiver"
+            ],
+            "eligibility": {
+                "min_age": 21,
+                "max_age": 65,
+                "min_income": 300000,
+                "credit_score": 700
+            },
+            "apply_url": "https://www.rblbank.com/product/credit-cards/platinum-maxima-credit-card",
+            "image": ".webp"
+        }
+    ]
+
+    return cardData
 }

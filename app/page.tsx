@@ -1,103 +1,88 @@
-import Image from "next/image";
+'use client'
+import React from 'react';
+import data from './data/data';
+import { Gift, Plane, TrendingUp } from 'lucide-react';
+import Image from 'next/image';
+import Link from 'next/link';
+
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const cardData = data();
+  const formatCurrency = (amount) =>
+    new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(amount);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+  return (
+    <div className="min-h-screen flex flex-col gap-4 items-center justify-center bg-gradient-to-br from-black via-neutral-900 to-neutral-800 py-12 px-4">
+      {cardData.map((card) => (
+
+        <div
+          key={card.card_id}
+          className="flex flex-col md:flex-row items-stretch bg-gradient-to-br from-neutral-900 via-black to-neutral-800 border border-neutral-800 rounded-2xl shadow-xl overflow-hidden transition-all hover:shadow-neutral-950/80 group"
+        >
+          <div className="flex flex-row md:flex-col items-center md:items-start gap-6 bg-neutral-900/80 p-8 md:w-72">
+
+            <div>
+              <h2 className="text-xl font-bold text-white mb-1">{card.card_name}</h2>
+              <div className="flex items-center gap-2">
+                <span className="text-neutral-400 text-sm">{card.issuer}</span>
+                <span className="px-2 py-0.5 bg-neutral-800 text-neutral-300 text-xs rounded-full uppercase border border-neutral-700">
+                  {card.category}
+                </span>
+              </div>
+            </div>
             <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
+              src='/Axis-Atlas-1.png.webp'
+              alt={card.card_name}
+              width={500}
+              height={300}
             />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+          </div>
+          <div className="flex-1 w-[45rem] grid grid-cols-2 gap-6 p-8 bg-gradient-to-br from-black via-neutral-900 to-neutral-800">
+            <div>
+              <div className="text-neutral-400 text-xs">Joining Fee</div>
+              <div className="text-lg font-semibold text-white">{formatCurrency(card.joining_fee)}</div>
+              <div className="text-neutral-400 text-xs mt-4">Annual Fee</div>
+              <div className="text-lg font-semibold text-white">{formatCurrency(card.annual_fee)}</div>
+            </div>
+            <div>
+              <div className="flex items-center gap-2 mb-2">
+                <TrendingUp className="w-4 h-4 text-neutral-500" />
+                <span className="text-neutral-200 font-semibold text-sm">Rewards</span>
+              </div>
+              <div className="flex flex-col gap-1">
+                <span className="text-neutral-400 text-xs">
+                  Domestic: <span className="text-neutral-100">{card.rewards.domestic_spends}</span>
+                </span>
+                <span className="text-neutral-400 text-xs">
+                  International: <span className="text-neutral-100">{card.rewards.international_spends}</span>
+                </span>
+              </div>
+              <div className="flex items-center gap-2 mt-4">
+                <Gift className="w-4 h-4 text-neutral-500" />
+                <span className="text-neutral-200 font-semibold text-sm">Welcome</span>
+              </div>
+              <ul className="list-disc list-inside text-neutral-300 text-xs pl-2">
+                {card.welcome_benefits.map((b, i) => (
+                  <li key={i}>{b}</li>
+                ))}
+              </ul>
+            </div>
+            <div className="col-span-2 mt-4">
+              <div className="flex items-center gap-2 mb-2">
+                <Plane className="w-4 h-4 text-neutral-500" />
+                <span className="text-neutral-200 font-semibold text-sm">Features</span>
+              </div>
+              <ul className="flex flex-wrap gap-3">
+                {card.features.map((f, i) => (
+                  <li key={i} className="bg-neutral-800/70 text-neutral-200 text-xs px-3 py-1 rounded-full border border-neutral-700">
+                    {f}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      ))}
     </div>
   );
 }
