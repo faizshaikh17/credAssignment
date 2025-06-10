@@ -1,19 +1,35 @@
 'use client'
-import React from 'react';
+import React, { useMemo } from 'react';
 import data from './data/data';
 import { Gift, Plane, TrendingUp } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import Search from './ui/components/Search';
+import { useSearchParams } from "next/navigation";
 
 
 export default function Home() {
   const cardData = data();
+  const searchParams = useSearchParams();
+  const query = searchParams.get("query") || "";
+
   const formatCurrency = (amount) =>
     new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(amount);
 
+  const filteredCards = useMemo(() => {
+    return cardData.filter((card) =>
+      card.welcome_benefits.some((benefit) =>
+        benefit.toLowerCase().includes(query)
+      ) || card.features.some((feature) =>
+        feature.toLowerCase().includes(query)
+      )
+    );
+  }, [cardData, query]);
+
   return (
-    <div className="min-h-screen flex flex-col gap-4 items-center justify-center bg-gradient-to-br from-black via-neutral-900 to-neutral-800 py-12 px-4">
-      {cardData.map((card) => (
+    <div className="min-h-screen flex flex-col gap-4 items-center justify-start bg-gradient-to-br from-black via-neutral-900 to-neutral-800 py-12 px-4">
+      <Search />
+      {filteredCards.length > 0 && filteredCards.map((card) => (
         <Link href={`/card/${card.card_id}`} key={card.card_id} >
           <div
 

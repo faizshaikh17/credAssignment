@@ -135,7 +135,7 @@ export default function CreditCardComponent() {
                 <div className="px-8 py-7 bg-neutral-900 border-t border-neutral-800">
                     <button
                         onClick={() => window.open(card.apply_url, '_blank')}
-                        className="w-full bg-gradient-to-r from-black via-neutral-900 to-neutral-800 text-white py-4 rounded-2xl font-semibold text-lg flex items-center justify-center gap-3 border border-neutral-800 hover:bg-white/90 hover:text-black hover:border-neutral-600 transition-all"
+                        className="w-full bg-gradient-to-r from-black via-neutral-900 to-neutral-800 text-white py-4 rounded-2xl font-semibold text-lg flex items-center justify-center gap-3 border border-neutral-800 hover:bg-white/90 hover:border-neutral-600 transition-all"
                     >
                         Apply Now
                         <ExternalLink className="w-5 h-5" />
