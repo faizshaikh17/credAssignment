@@ -28,7 +28,8 @@ export default function data() {
                 "min_income": 1200000,
                 "credit_score": 750
             },
-            "apply_url": "https://www.hdfcbank.com/personal/pay/cards/credit-cards/regalia-credit-card"
+            "apply_url": "https://www.hdfcbank.com/personal/pay/cards/credit-cards/regalia-credit-card",
+            "image": "/cc001.png"
         },
         {
             "card_id": "cc002",
@@ -57,7 +58,7 @@ export default function data() {
                 "credit_score": 760
             },
             "apply_url": "https://www.axisbank.com/retail/cards/credit-card/axis-bank-magnus-card",
-            "image": "/Axis-Atlas-1.png.webp"
+            "image": "/cc002.webp"
 
         },
         {
@@ -88,7 +89,7 @@ export default function data() {
                 "credit_score": 740
             },
             "apply_url": "https://www.sbicard.com/en/personal/credit-cards/travel/sbi-card-elite.page",
-            "image": "/Axis-Atlas-1.png.webp"
+            "image": "/cc003.png"
         },
         {
             "card_id": "cc004",
@@ -117,7 +118,7 @@ export default function data() {
                 "credit_score": 700
             },
             "apply_url": "https://www.icicibank.com/Personal-Banking/cards/Consumer-Cards/Credit-Card/coral-card",
-            "image": "/Axis-Atlas-1.png.webp"
+            "image": "/cc004.webp"
         },
         {
             "card_id": "cc005",
@@ -144,7 +145,7 @@ export default function data() {
                 "credit_score": 720
             },
             "apply_url": "https://www.americanexpress.com/in/credit-cards/platinum-travel/",
-            "image": "/Axis-Atlas-1.png.webp"
+            "image": "/cc005.avif"
         },
         {
             "card_id": "cc006",
@@ -171,7 +172,7 @@ export default function data() {
                 "credit_score": 720
             },
             "apply_url": "https://www.hdfcbank.com/personal/pay/cards/credit-cards/millennia-credit-card",
-            "image": "/Axis-Atlas-1.png.webp"
+            "image": "/cc006.png"
         },
         {
             "card_id": "cc007",
@@ -198,7 +199,7 @@ export default function data() {
                 "credit_score": 720
             },
             "apply_url": "https://www.axisbank.com/retail/cards/credit-card/axis-bank-ace-credit-card",
-            "image": "/Axis-Atlas-1.png.webp"
+            "image": "/cc007.jpg"
         },
         {
             "card_id": "cc008",
@@ -225,7 +226,7 @@ export default function data() {
                 "credit_score": 720
             },
             "apply_url": "https://www.sc.com/in/credit-cards/manhattan/",
-            "image": "/Axis-Atlas-1.png.webp"
+            "image": "/cc008.png"
         },
         {
             "card_id": "cc009",
@@ -252,7 +253,7 @@ export default function data() {
                 "credit_score": 720
             },
             "apply_url": "https://www.online.citibank.co.in/products-services/credit-cards/rewards/rewards-card.htm",
-            "image": "/Axis-Atlas-1.png.webp"
+            "image": "/cc009.webp"
         },
         {
             "card_id": "cc010",
@@ -279,7 +280,7 @@ export default function data() {
                 "credit_score": 700
             },
             "apply_url": "https://www.indusind.com/in/en/personal/cards/credit-card/platinum-aura-edge.html",
-            "image": "/Axis-Atlas-1.png.webp"
+            "image": "/cc010.png"
         },
         {
             "card_id": "cc011",
@@ -307,7 +308,7 @@ export default function data() {
                 "credit_score": 720
             },
             "apply_url": "https://www.hsbc.co.in/credit-cards/products/platinum/",
-            "image": "/Axis-Atlas-1.png.webp"
+            "image": "/cc011.jpg"
         },
         {
             "card_id": "cc012",
@@ -334,7 +335,7 @@ export default function data() {
                 "credit_score": 700
             },
             "apply_url": "https://www.kotak.com/en/personal-banking/cards/credit-cards/royale-signature-credit-card.html",
-            "image": "/Axis-Atlas-1.png.webp"
+            "image": "/cc012.webp"
         },
         {
             "card_id": "cc013",
@@ -361,7 +362,7 @@ export default function data() {
                 "credit_score": 750
             },
             "apply_url": "https://www.aubank.in/personal-banking/cards/credit-card/zenith-credit-card",
-            "image": "/Axis-Atlas-1.png.webp"
+            "image": "/cc013.webp"
         },
         {
             "card_id": "cc014",
@@ -388,7 +389,7 @@ export default function data() {
                 "credit_score": 720
             },
             "apply_url": "https://www.idfcfirstbank.com/credit-card/wealth-credit-card",
-            "image": "/Axis-Atlas-1.png.webp"
+            "image": "/cc014.png"
         },
         {
             "card_id": "cc015",
@@ -415,7 +416,7 @@ export default function data() {
                 "credit_score": 700
             },
             "apply_url": "https://www.rblbank.com/product/credit-cards/platinum-maxima-credit-card",
-            "image": ".webp"
+            "image": "/cc015.webp"
         }
     ]
 
