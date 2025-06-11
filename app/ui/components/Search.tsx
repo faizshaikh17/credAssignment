@@ -105,7 +105,7 @@ Return the result as a JSON array of strings.`;
     };
 
     return (
-        <div className="relative flex w-full max-w-[27rem] max-h-10 flex-1 shrink-0">
+        <div className="relative flex w-full max-w-[25rem] max-h-10 flex-1 shrink-0">
             <label htmlFor="search" className="sr-only">Search</label>
             <input
                 id="search"
