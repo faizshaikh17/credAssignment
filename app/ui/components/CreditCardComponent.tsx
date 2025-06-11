@@ -44,7 +44,7 @@ export default function Home() {
             card.features.some((feature) =>
                 feature.toLowerCase().includes(query),
             ) ||
-            Object.entries(card).some(([key, value]) => {
+            Object.entries(card).some(([value]) => {
                 const val =
                     typeof value === 'string'
                         ? value
