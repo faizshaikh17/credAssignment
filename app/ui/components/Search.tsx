@@ -18,6 +18,7 @@ export default function Search({ placeholder }: { placeholder: string }) {
 
     const [query, setQuery] = useState(searchParams.get('query') || '');
     const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
+    const [toggle, setToggle] = useState<boolean>(false);
     const cardData = data();
 
     const getModel = () => {
@@ -28,6 +29,7 @@ export default function Search({ placeholder }: { placeholder: string }) {
     };
 
     const optimizeQuery = useCallback(async (inputQuery: string): Promise<string[]> => {
+        setToggle(true)
         const model = getModel();
         if (!model) return [inputQuery];
 
@@ -83,6 +85,7 @@ export default function Search({ placeholder }: { placeholder: string }) {
         params.set('query', suggestionText);
         replace(`${pathname}?${params.toString()}`);
         setSuggestions([]);
+        setToggle(false)
     };
 
     return (
@@ -98,7 +101,7 @@ export default function Search({ placeholder }: { placeholder: string }) {
                 aria-controls="suggestions"
             />
             <Magnify className="absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-neutral-600 peer-focus:text-neutral-400" />
-            {suggestions.length > 0 && (
+            {toggle && (
                 <ul
                     id="suggestions"
                     className="absolute z-10 w-full mt-10 bg-neutral-800 rounded-md shadow-lg max-h-40 overflow-y-auto border border-neutral-700"
@@ -109,7 +112,7 @@ export default function Search({ placeholder }: { placeholder: string }) {
                             key={i}
                             className="px-4 py-2 text-neutral-200 hover:bg-neutral-700 cursor-pointer text-sm"
                             onClick={() => handleSuggestionClick(s.suggestion)}
-                            // role="option"
+                            role="option"
                         >
                             <div className="font-medium">{s.suggestion}</div>
                             <div className="text-xs text-neutral-400">{s.description}</div>
