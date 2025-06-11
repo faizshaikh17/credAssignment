@@ -41,17 +41,17 @@ export default function Home() {
       (card) =>
         card.welcome_benefits.some((benefit) => benefit.toLowerCase().includes(query)) ||
         card.features.some((feature) => feature.toLowerCase().includes(query)) ||
-        Object.entries(card).some(([_, value]) => {
+        Object.entries(card).some(([value]) => {
           const val =
             typeof value === 'string'
               ? value
               : typeof value === 'number'
-              ? value.toString()
-              : Array.isArray(value)
-              ? value.join(', ')
-              : typeof value === 'object' && value !== null
-              ? Object.values(value).join(', ')
-              : '';
+                ? value.toString()
+                : Array.isArray(value)
+                  ? value.join(', ')
+                  : typeof value === 'object' && value !== null
+                    ? Object.values(value).join(', ')
+                    : '';
           return val.toLowerCase().includes(query);
         })
     );
