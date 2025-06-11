@@ -13,10 +13,10 @@ export default function CreditCardComponent() {
 
     if (!card) return <div>Card not found</div>;
 
-    const formatCurrency = (amount) =>
+    const formatCurrency = (amount:number) =>
         new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(amount);
 
-    const formatIncome = (amount) => `₹${(amount / 100000).toFixed(1)}L`;
+    const formatIncome = (amount:number) => `₹${(amount / 100000).toFixed(1)}L`;
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-black via-neutral-900 to-neutral-800 py-12 px-4">
