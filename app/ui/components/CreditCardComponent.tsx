@@ -19,8 +19,8 @@ type Card = {
     welcome_benefits: string[];
     features: string[];
     rewards: {
-        domestic_spends: string;
-        international_spends: string;
+        domestic_spends?: string;
+        international_spends?: string;
     };
 };
 
