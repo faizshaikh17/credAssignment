@@ -63,7 +63,10 @@ export default function SearchWrapper() {
 
     return (
         <>
-            <Search placeholder="" />
+            <div className='flex justify-between items-center gap-8'>
+                <h1 className='text-3xl font-bold'>HiCred</h1>
+                <Search placeholder="" />
+            </div>
             {filteredCards.length > 0 &&
                 filteredCards.map((card) => (
                     <Link href={`/card/${card.card_id}`} key={card.card_id}>
