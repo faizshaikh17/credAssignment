@@ -7,6 +7,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import Search from './ui/components/Search';
 import { useSearchParams } from 'next/navigation';
+import { Suspense } from 'react';
 
 type Card = {
   card_id: string;
@@ -64,7 +65,9 @@ export default function Home() {
 
   return (
     <div className="min-h-screen flex flex-col gap-4 items-center justify-start bg-gradient-to-br from-black via-neutral-900 to-neutral-800 py-12 px-4">
-      <Search placeholder="Search cards, benefits, features..." />
+      <Suspense fallback={<div>Loading...</div>}>
+        <Search placeholder="" />
+      </Suspense>
       {filteredCards.length > 0 &&
         filteredCards.map((card) => (
           <Link href={`/card/${card.card_id}`} key={card.card_id}>

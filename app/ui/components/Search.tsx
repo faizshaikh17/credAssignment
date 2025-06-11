@@ -1,5 +1,4 @@
 'use client';
-
 import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 import { useState, useEffect, useCallback } from 'react';
 import { Search as Magnify } from 'lucide-react';
