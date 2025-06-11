@@ -39,7 +39,7 @@ export default function CreditCardComponent() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-black via-neutral-900 to-neutral-800 py-12 px-4">
-      <div className="w-full max-w-5xl rounded-3xl shadow-2xl overflow-hidden border border-neutral-800 bg-gradient-to-br from-neutral-900 via-black to-neutral-800 transition-all duration-300 hover:scale-[1.015] hover:shadow-black/70">
+      <div className="w-full max-w-3xl shadow-2xl overflow-hidden border border-neutral-700/60 border-dashed bg-gradient-to-br from-neutral-900 via-black to-neutral-800 transition-all duration-300 hover:scale-[1.015] hover:shadow-black/70">
         <div className="relative px-6 sm:px-8 py-7 bg-gradient-to-br from-black via-neutral-900 to-neutral-800">
           <div className="absolute inset-0 pointer-events-none">
             <div className="absolute right-0 top-0 w-32 h-32 bg-gradient-to-br from-white/5 via-transparent to-transparent rounded-full blur-2xl opacity-40"></div>
@@ -177,7 +177,7 @@ export default function CreditCardComponent() {
         <div className="px-6 sm:px-8 py-7 bg-neutral-900 border-t border-neutral-800">
           <button
             onClick={() => window.open(card.apply_url, '_blank')}
-            className="w-full bg-gradient-to-r from-black via-neutral-900 to-neutral-800 text-white py-4 rounded-2xl font-semibold text-lg flex items-center justify-center gap-3 border border-neutral-800 hover:bg-white/90 cursor-pointer"
+            className="w-full bg-gradient-to-r from-black via-neutral-900 to-neutral-800 text-white py-3 rounded-xl font-medium text-lg flex items-center justify-center gap-3 border border-neutral-800 cursor-pointer"
           >
             Apply Now
           </button>

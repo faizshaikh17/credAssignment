@@ -64,7 +64,7 @@ export default function SearchWrapper() {
     return (
         <>
             <div className="border-b sticky top-0 z-10 flex justify-center border-t w-full border-neutral-700/60 border-dashed">
-                    <div className="w-full max-w-[60rem] backdrop-blur-md">
+                    <div className="w-full max-w-[60rem] backdrop-blur-sm">
                         <div className="flex px-4 py-3 flex-col gap-4 md:flex-row md:items-center md:justify-between">
                             <Link href="/">
                                 <div className="flex items-center gap-2.5 min-w-[14rem] justify-center md:justify-start">
@@ -109,7 +109,7 @@ export default function SearchWrapper() {
                                         priority
                                     />
                                 </div>
-                                <div className="flex-1 w-full md:w-[35rem] grid grid-cols-1 md:grid-cols-2 p-4 md:p-8 gap-4 bg-gradient-to-br from-black via-neutral-900 to-neutral-800">
+                                <div className="flex-1 w-full md:w-[30rem] grid grid-cols-1 md:grid-cols-2 p-4 md:p-8 gap-4 bg-gradient-to-br from-black via-neutral-900 to-neutral-800">
                                     <div>
                                         <div className="text-neutral-400 text-xs">Joining Fee</div>
                                         <div className="text-lg font-semibold text-white">{formatCurrency(card.joining_fee)}</div>
