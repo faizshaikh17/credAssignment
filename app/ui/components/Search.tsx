@@ -33,21 +33,32 @@ export default function Search({ placeholder }: { placeholder: string }) {
         const model = getModel();
         if (!model) return [inputQuery];
 
+        function extractExactPhrases(data) {
+            const phraseSet = new Set();
+
+            data.forEach(card => {
+                (card.welcome_benefits || []).forEach(benefit => phraseSet.add(benefit));
+                (card.features || []).forEach(feature => phraseSet.add(feature));
+            });
+
+            return Array.from(phraseSet);
+        }
+
+
         try {
+            const exactPhrases = extractExactPhrases(cardData);
+
             const prompt = `You are an assistant helping users explore a credit card comparison app.
+User query: "${inputQuery}"
+Based on this dataset: ${JSON.stringify(exactPhrases)}
+Your task:
+- Suggest up to 3 relevant keyword **phrases** that exist **exactly as-is** in the dataset.
+- These phrases must be copied **verbatim from the dataset**, including spaces, punctuation, and casing — no changes allowed.
+- Prioritize phrases that best match the user intent and are helpful for filtering or comparison (e.g., "priority pass membership", "fuel surcharge waiver", "international lounge visits/year").
+- If the user query contains partial words (e.g., "priority"), expand it using actual phrases found in the dataset.
+Return the result as a JSON array of strings. Example:
+["priority pass membership", "international lounge visits/year", "fuel surcharge waiver"]`;
 
-            User query: "${inputQuery}"
-
-            Based on this dataset: ${cardData}
-
-            Your task:
-            - Suggest up to 3 relevant keyword **phrases** that exist **exactly as-is** in the dataset.
-            - These phrases must be copied **verbatim from the dataset**, including spaces, punctuation, and casing — no changes allowed.
-            - Prioritize phrases that best match the user intent and are helpful for filtering or comparison (e.g., "priority pass membership", "fuel surcharge waiver", "international lounge visits/year").
-            - If the user query contains partial words (e.g., "priority"), expand it using actual phrases found in the dataset.
-
-            Return the result as a JSON array of strings. Example:
-            ["priority pass membership", "international lounge visits/year", "fuel surcharge waiver"]`;
 
             const result = await model.generateContent(prompt);
             const response = await result.response.text();
