@@ -136,7 +136,7 @@ Return the result as a JSON array of strings. Example:
                 id="search"
                 className="peer block w-full rounded-md border border-neutral-800 py-[9px] pl-10 text-sm placeholder:text-neutral-400 bg-neutral-900 text-neutral-200 focus:outline-none focus:ring-1 focus:ring-neutral-700 focus:border-neutral-200"
                 placeholder={placeholder}
-                onChange={(e) => handleSearch(e.target.value)}
+                onChange={(e) => handleSearch(e.target.value.toLowerCase())}
                 value={query}
                 aria-autocomplete="list"
                 aria-controls="suggestions"
