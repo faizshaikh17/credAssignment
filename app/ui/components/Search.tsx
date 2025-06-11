@@ -34,10 +34,24 @@ export default function Search({ placeholder }: { placeholder: string }) {
         if (!model) return [inputQuery];
 
         try {
-            const prompt = `Refine this search query for a credit card comparison app: "${inputQuery}". Suggest up to 3 relevant keywords based on this data and make sure you suggest lines or words which are included in this dataset only "${cardData}" (e.g., rewards, cashback, lounge). Output as a JSON array.`;
+            const prompt = `You are an assistant helping users explore a credit card comparison app.
+
+            User query: "${inputQuery}"
+
+            Based on this dataset: ${cardData}
+
+            Your task:
+            - Suggest up to 3 relevant keyword **phrases** that exist **exactly as-is** in the dataset.
+            - These phrases must be copied **verbatim from the dataset**, including spaces, punctuation, and casing — no changes allowed.
+            - Prioritize phrases that best match the user intent and are helpful for filtering or comparison (e.g., "priority pass membership", "fuel surcharge waiver", "international lounge visits/year").
+            - If the user query contains partial words (e.g., "priority"), expand it using actual phrases found in the dataset.
+
+            Return the result as a JSON array of strings. Example:
+            ["priority pass membership", "international lounge visits/year", "fuel surcharge waiver"]`;
+
             const result = await model.generateContent(prompt);
             const response = await result.response.text();
-            return JSON.parse(response.replace(/```json\n?|\n```/g, ''));
+            return JSON.parse(response.replace(/```json\n?|\n```/g, '').toLowerCase());
         } catch (error) {
             console.error('Gemini API error:', error);
             return [inputQuery];
