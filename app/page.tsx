@@ -22,7 +22,11 @@ export default function Home() {
         benefit.toLowerCase().includes(query)
       ) || card.features.some((feature) =>
         feature.toLowerCase().includes(query)
+      ) || Object.entries(card).some((value) =>
+        value.toString().toLowerCase().includes(query)
+
       )
+
     );
   }, [cardData, query]);
 
@@ -51,6 +55,7 @@ export default function Home() {
                 width={500}
                 height={300}
                 className='rounded-lg'
+                priority
               />
             </div>
             <div className="flex-1 w-[45rem] grid grid-cols-2 gap-6 p-8 bg-gradient-to-br from-black via-neutral-900 to-neutral-800">

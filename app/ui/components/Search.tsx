@@ -1,36 +1,108 @@
-
 'use client';
+
 import { useSearchParams, usePathname, useRouter } from 'next/navigation';
-import { useDebouncedCallback } from 'use-debounce';
-import { Search as Maginfy } from 'lucide-react';
+import { Search as Magnify } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { GoogleGenerativeAI } from '@google/generative-ai';
+import data from '@/app/data/data';
 
 export default function Search({ placeholder }: { placeholder: string }) {
     const searchParams = useSearchParams();
-    const pathname = usePathname()
-    const { replace } = useRouter()
+    const pathname = usePathname();
+    const { replace } = useRouter();
 
+    const [query, setQuery] = useState(searchParams.get('query') || '');
+    const [suggestions, setSuggestions] = useState<any[]>([]);
+    const cardData = data();
 
-    const handleSearch = useDebouncedCallback((term: string) => {
+    const genAI = new GoogleGenerativeAI(process.env.NEXT_PUBLIC_GEMINI_API_KEY || '');
+    const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash-lite' });
+
+    const optimizeQuery = async (inputQuery: string) => {
+        if (!process.env.NEXT_PUBLIC_GEMINI_API_KEY) return [inputQuery];
+        try {
+            const prompt = `Refine this search query for a credit card comparison app: "${inputQuery}". Suggest up to 3 relevant keywords based on this data and make sure you suggest lines or words which are included in this dataset only "${cardData}" (e.g., rewards, cashback, lounge). Output as a JSON array.`;
+            const result = await model.generateContent(prompt);
+            const response = await result.response.text();
+            return JSON.parse(response.replace(/```json\n|\n```/g, ''));
+        } catch (error) {
+            console.error('Gemini API error:', error);
+            return [inputQuery];
+        }
+    };
+
+    const fetchSuggestions = async (input: string) => {
+        if (!input || !process.env.NEXT_PUBLIC_GEMINI_API_KEY) {
+            setSuggestions([]);
+            return;
+        }
+        try {
+            const prompt = `Generate 4 autocomplete suggestions for the search query "${input}" in a credit card comparison app. Each suggestion should be an object with a "suggestion", "description", and "url". Output as a JSON array.`;
+            const result = await model.generateContent(prompt);
+            const response = await result.response.text();
+            setSuggestions(JSON.parse(response.replace(/```json\n|\n```/g, '').toString()));
+        } catch (error) {
+            console.error('Gemini suggestions error:', error);
+            setSuggestions([]);
+        }
+    };
+
+    useEffect(() => {
+        fetchSuggestions(query);
+    }, [query]);
+
+    const handleSearch = async (term: string) => {
+        setQuery(term);
         const params = new URLSearchParams(searchParams);
         if (term) {
-            params.set('query', term)
+            const optimizedTerms = await optimizeQuery(term);
+            params.set('query', optimizedTerms.join(','));
         } else {
-            params.delete('query')
+            params.delete('query');
         }
-        replace(`${pathname}?${params?.toString()}`)
-    }, 300)
+        replace(`${pathname}?${params.toString()}`);
+    };
+
+    const handleSuggestionClick = (suggestionText: string) => {
+        setQuery(suggestionText);
+        const params = new URLSearchParams(searchParams);
+        params.set('query', suggestionText);
+        replace(`${pathname}?${params.toString()}`);
+        setSuggestions([]);
+    };
+
     return (
         <div className="relative flex w-[45rem] max-h-10 flex-1 flex-shrink-0">
-            <label htmlFor="search" className="sr-only">
-                Search
-            </label>
+            <label htmlFor="search" className="sr-only">Search</label>
             <input
-                className="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm placeholder:text-gray-500"
+                id="search"
+                className="peer block w-full rounded-md border border-neutral-800 py-[9px] pl-10 text-sm placeholder:text-neutral-400 bg-neutral-900 text-neutral-200 focus:outline-none focus:ring-1 focus:ring-neutral-700 focus:border-neutral-200"
                 placeholder={placeholder}
                 onChange={(e) => handleSearch(e.target.value)}
-                defaultValue={searchParams?.get('query')?.toString()}
+                value={query}
+                aria-autocomplete="list"
+                aria-controls="suggestions"
             />
-            <Maginfy className="absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-white" />
+            <Magnify className="absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-neutral-600 peer-focus:text-neutral-400" />
+            {suggestions.length > 0 && (
+                <ul
+                    id="suggestions"
+                    className="absolute z-10 w-full mt-10 bg-neutral-800 rounded-md shadow-lg max-h-40 overflow-y-auto border border-neutral-700"
+                    role="listbox"
+                >
+                    {suggestions.map((s, i) => (
+                        <li
+                            key={i}
+                            className="px-4 py-2 text-neutral-200 hover:bg-neutral-700 cursor-pointer text-sm"
+                            onClick={() => handleSuggestionClick(s.suggestion)}
+                            role="option"
+                        >
+                            <div className="font-medium">{s.suggestion}</div>
+                            <div className="text-xs text-neutral-400">{s.description}</div>
+                        </li>
+                    ))}
+                </ul>
+            )}
         </div>
     );
 }
