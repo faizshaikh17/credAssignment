@@ -41,19 +41,24 @@ export default function Home() {
       (card) =>
         card.welcome_benefits.some((benefit) => benefit.toLowerCase().includes(query)) ||
         card.features.some((feature) => feature.toLowerCase().includes(query)) ||
-        Object.entries(card).some(([value]) => {
-          const val =
-            typeof value === 'string'
-              ? value
-              : typeof value === 'number'
-                ? value.toString()
-                : Array.isArray(value)
-                  ? value.join(', ')
-                  : typeof value === 'object' && value !== null
-                    ? Object.values(value).join(', ')
-                    : '';
+        Object.entries(card).some(([, value]) => {
+          let val: string = '';
+
+          if (typeof value === 'string') {
+            val = value;
+          } else if (typeof value === 'number') {
+            val = value.toString();
+          } else if (Array.isArray(value)) {
+            val = value.join(', ');
+          } else if (value && typeof value === 'object') {
+            val = Object.values(value)
+              .map((v) => (typeof v === 'string' || typeof v === 'number' ? v.toString() : ''))
+              .join(', ');
+          }
+
           return val.toLowerCase().includes(query);
         })
+
     );
   }, [cardData, query]);
 
