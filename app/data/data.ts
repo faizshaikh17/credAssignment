@@ -118,7 +118,7 @@ export default function data() {
                 "credit_score": 700
             },
             "apply_url": "https://www.icicibank.com/Personal-Banking/cards/Consumer-Cards/Credit-Card/coral-card",
-            "image": "/cc004.webp"
+            "image": "/cc004.png"
         },
         {
             "card_id": "cc005",

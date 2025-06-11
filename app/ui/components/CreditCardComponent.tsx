@@ -1,22 +1,29 @@
 'use client'
-import React from 'react';
+import React, { useState } from 'react';
 import { usePathname } from 'next/navigation';
-import { Gift, Plane, Shield, TrendingUp, User, DollarSign, ExternalLink } from 'lucide-react';
+import { Gift, Plane, Shield, TrendingUp, User, DollarSign, TableProperties } from 'lucide-react';
 import data from '@/app/data/data';
 import Image from 'next/image';
-
 
 export default function CreditCardComponent() {
     const path = usePathname();
     const cardData = data();
-    const card = cardData.find((c) => c.card_id === path.split('/').pop());
+    const card = cardData.find(c => c.card_id === path.split('/').pop());
+    const [showComparison, setShowComparison] = useState(false);
 
     if (!card) return <div>Card not found</div>;
 
-    const formatCurrency = (amount:number) =>
+    const formatCurrency = (amount: number) =>
         new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(amount);
 
-    const formatIncome = (amount:number) => `₹${(amount / 100000).toFixed(1)}L`;
+    const formatIncome = (amount: number) => `₹${(amount / 100000).toFixed(1)}L`;
+
+    const getComparisonCards = () => {
+        const sameCategory = cardData
+            .filter(c => c.card_id !== card.card_id && c.category === card.category)
+            .slice(0, 2);
+        return [card, ...sameCategory];
+    };
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-black via-neutral-900 to-neutral-800 py-12 px-4">
@@ -39,7 +46,7 @@ export default function CreditCardComponent() {
                             alt={card.card_name}
                             width={500}
                             height={300}
-                            className='rounded-lg h-[12rem] w-[20rem]'
+                            className="rounded-lg h-[12rem] w-[20rem]"
                         />
                     </div>
                     <div className="grid grid-cols-2 gap-6 mt-8">
@@ -138,9 +145,69 @@ export default function CreditCardComponent() {
                         className="w-full bg-gradient-to-r from-black via-neutral-900 to-neutral-800 text-white py-4 rounded-2xl font-semibold text-lg flex items-center justify-center gap-3 border border-neutral-800 hover:bg-white/90 hover:border-neutral-600 transition-all"
                     >
                         Apply Now
-                        <ExternalLink className="w-5 h-5" />
                     </button>
+                    <div className="mt-4">
+                        <button
+                            onClick={() => setShowComparison(!showComparison)}
+                            className="w-full bg-gradient-to-r from-neutral-800 to-neutral-700 text-white py-3 rounded-xl font-medium flex items-center justify-center gap-2 border border-neutral-700 hover:bg-neutral-700 transition-all"
+                        >
+                            <TableProperties className="w-5 h-5" />
+                            {showComparison ? "Hide Comparison" : "Compare with Similar Cards"}
+                        </button>
+                    </div>
                 </div>
+
+                {showComparison && (
+                    <div className="mt-10 px-6 pb-10">
+                        <h2 className="text-white text-xl font-bold mb-6">Comparison Table</h2>
+                        <div className="overflow-auto rounded-xl border border-neutral-800">
+                            <table className="min-w-full text-sm text-white bg-neutral-900 rounded-xl">
+                                <thead className="bg-neutral-800 text-neutral-300 text-left">
+                                    <tr>
+                                        <th className="py-3 px-4">Feature</th>
+                                        {getComparisonCards().map(c => (
+                                            <th key={c.card_id} className="py-3 px-4">{c.card_name}</th>
+                                        ))}
+                                    </tr>
+                                </thead>
+                                <tbody className="divide-y divide-neutral-800">
+                                    <tr>
+                                        <td className="py-3 px-4 text-neutral-400">Issuer</td>
+                                        {getComparisonCards().map(c => <td key={c.card_id} className="py-3 px-4">{c.issuer}</td>)}
+                                    </tr>
+                                    <tr>
+                                        <td className="py-3 px-4 text-neutral-400">Category</td>
+                                        {getComparisonCards().map(c => <td key={c.card_id} className="py-3 px-4">{c.category}</td>)}
+                                    </tr>
+                                    <tr>
+                                        <td className="py-3 px-4 text-neutral-400">Joining Fee</td>
+                                        {getComparisonCards().map(c => <td key={c.card_id} className="py-3 px-4">{formatCurrency(c.joining_fee)}</td>)}
+                                    </tr>
+                                    <tr>
+                                        <td className="py-3 px-4 text-neutral-400">Annual Fee</td>
+                                        {getComparisonCards().map(c => <td key={c.card_id} className="py-3 px-4">{formatCurrency(c.annual_fee)}</td>)}
+                                    </tr>
+                                    <tr>
+                                        <td className="py-3 px-4 text-neutral-400">Min Income</td>
+                                        {getComparisonCards().map(c => <td key={c.card_id} className="py-3 px-4">{formatIncome(c.eligibility.min_income)}</td>)}
+                                    </tr>
+                                    <tr>
+                                        <td className="py-3 px-4 text-neutral-400">Credit Score</td>
+                                        {getComparisonCards().map(c => <td key={c.card_id} className="py-3 px-4">{c.eligibility.credit_score}+</td>)}
+                                    </tr>
+                                    <tr>
+                                        <td className="py-3 px-4 text-neutral-400">Rewards (Domestic)</td>
+                                        {getComparisonCards().map(c => <td key={c.card_id} className="py-3 px-4">{c.rewards.domestic_spends}</td>)}
+                                    </tr>
+                                    <tr>
+                                        <td className="py-3 px-4 text-neutral-400">Rewards (International)</td>
+                                        {getComparisonCards().map(c => <td key={c.card_id} className="py-3 px-4">{c.rewards.international_spends}</td>)}
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                )}
             </div>
         </div>
     );
