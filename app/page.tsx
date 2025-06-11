@@ -1,44 +1,71 @@
-'use client'
+'use client';
+
 import React, { useMemo } from 'react';
 import data from './data/data';
 import { Gift, Plane, TrendingUp } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import Search from './ui/components/Search';
-import { useSearchParams } from "next/navigation";
+import { useSearchParams } from 'next/navigation';
 
+type Card = {
+  card_id: string;
+  card_name: string;
+  issuer: string;
+  category: string;
+  image: string;
+  joining_fee: number;
+  annual_fee: number;
+  welcome_benefits: string[];
+  features: string[];
+  rewards: {
+    domestic_spends: string;
+    international_spends: string;
+  };
+};
 
 export default function Home() {
-  const cardData = data();
+  const cardData: Card[] = data();
   const searchParams = useSearchParams();
-  const query = searchParams.get("query") || "";
+  const query = (searchParams.get('query') || '').toLowerCase();
 
-  const formatCurrency = (amount) =>
-    new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(amount);
+  const formatCurrency = (amount: number): string =>
+    new Intl.NumberFormat('en-IN', {
+      style: 'currency',
+      currency: 'INR',
+      maximumFractionDigits: 0,
+    }).format(amount);
 
   const filteredCards = useMemo(() => {
     return cardData.filter((card) =>
       card.welcome_benefits.some((benefit) =>
-        benefit.toLowerCase().includes(query)
-      ) || card.features.some((feature) =>
-        feature.toLowerCase().includes(query)
-      ) || Object.entries(card).some((value) =>
-        value.toString().toLowerCase().includes(query)
-
-      )
-
+        benefit.toLowerCase().includes(query),
+      ) ||
+      card.features.some((feature) =>
+        feature.toLowerCase().includes(query),
+      ) ||
+      Object.entries(card).some(([key, value]) => {
+        const val =
+          typeof value === 'string'
+            ? value
+            : typeof value === 'number'
+            ? value.toString()
+            : Array.isArray(value)
+            ? value.join(', ')
+            : typeof value === 'object' && value !== null
+            ? Object.values(value).join(', ')
+            : '';
+        return val.toLowerCase().includes(query);
+      })
     );
   }, [cardData, query]);
 
   return (
     <div className="min-h-screen flex flex-col gap-4 items-center justify-start bg-gradient-to-br from-black via-neutral-900 to-neutral-800 py-12 px-4">
-      <Search />
+      <Search placeholder="Search cards, benefits, features..." />
       {filteredCards.length > 0 && filteredCards.map((card) => (
-        <Link href={`/card/${card.card_id}`} key={card.card_id} >
-          <div
-
-            className="flex flex-col md:flex-row items-stretch bg-gradient-to-br from-neutral-900 via-black to-neutral-800 border border-neutral-800 rounded-2xl shadow-xl overflow-hidden transition-all hover:shadow-neutral-950/80 group"
-          >
+        <Link href={`/card/${card.card_id}`} key={card.card_id}>
+          <div className="flex flex-col md:flex-row items-stretch bg-gradient-to-br from-neutral-900 via-black to-neutral-800 border border-neutral-800 rounded-2xl shadow-xl overflow-hidden transition-all hover:shadow-neutral-950/80 group">
             <div className="flex flex-row md:flex-col items-center md:items-start gap-6 bg-neutral-900/80 p-8 md:w-72">
               <div>
                 <h2 className="text-xl font-bold text-white mb-1">{card.card_name}</h2>
@@ -54,7 +81,7 @@ export default function Home() {
                 alt={card.card_name}
                 width={500}
                 height={300}
-                className='rounded-lg'
+                className="rounded-lg"
                 priority
               />
             </div>
