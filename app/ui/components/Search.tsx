@@ -5,37 +5,15 @@ import { Search as Magnify } from 'lucide-react';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import data from '@/app/data/data';
 
-type Suggestion = {
-    suggestion: string;
-    description: string;
-    url: string;
-};
-
-type Card = {
-    card_id: string;
-    card_name: string;
-    issuer: string;
-    category: string;
-    image: string;
-    joining_fee: number;
-    annual_fee: number;
-    welcome_benefits: string[];
-    features: string[];
-    rewards: {
-        domestic_spends?: string;
-        international_spends?: string;
-    };
-};
-
 export default function Search({ placeholder }: { placeholder: string }) {
     const searchParams = useSearchParams();
     const pathname = usePathname();
     const { replace } = useRouter();
 
     const [query, setQuery] = useState(searchParams.get('query') || '');
-    const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
-    const [toggle, setToggle] = useState<boolean>(false);
-    const cardData: Card[] = data();
+    const [suggestions, setSuggestions] = useState([]);
+    const [toggle, setToggle] = useState(false);
+    const cardData = data();
 
     const getModel = () => {
         const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
@@ -44,12 +22,12 @@ export default function Search({ placeholder }: { placeholder: string }) {
         return genAI.getGenerativeModel({ model: 'gemini-2.0-flash-lite' });
     };
 
-    const optimizeQuery = useCallback(async (inputQuery: string): Promise<string[]> => {
-        setToggle(true)
+    const optimizeQuery = useCallback(async (inputQuery) => {
+        setToggle(true);
         const model = getModel();
         if (!model) return [inputQuery];
 
-        function extractExactPhrases(data: Card[]) {
+        function extractExactPhrases(data) {
             const phraseSet = new Set();
 
             data.forEach(card => {
@@ -59,7 +37,6 @@ export default function Search({ placeholder }: { placeholder: string }) {
 
             return Array.from(phraseSet);
         }
-
 
         try {
             const exactPhrases = extractExactPhrases(cardData);
@@ -72,9 +49,7 @@ Your task:
 - These phrases must be copied **verbatim from the dataset**, including spaces, punctuation, and casing — no changes allowed.
 - Prioritize phrases that best match the user intent and are helpful for filtering or comparison (e.g., "priority pass membership", "fuel surcharge waiver", "international lounge visits/year").
 - If the user query contains partial words (e.g., "priority"), expand it using actual phrases found in the dataset.
-Return the result as a JSON array of strings. Example:
-["priority pass membership", "international lounge visits/year", "fuel surcharge waiver"]`;
-
+Return the result as a JSON array of strings.`;
 
             const result = await model.generateContent(prompt);
             const response = await result.response.text();
@@ -85,7 +60,7 @@ Return the result as a JSON array of strings. Example:
         }
     }, [cardData]);
 
-    const fetchSuggestions = useCallback(async (input: string) => {
+    const fetchSuggestions = useCallback(async (input) => {
         const model = getModel();
         if (!input || !model) {
             setSuggestions([]);
@@ -96,7 +71,7 @@ Return the result as a JSON array of strings. Example:
             const prompt = `Generate 4 autocomplete suggestions for the search query "${input}" in a credit card comparison app. Each suggestion should be an object with a "suggestion", "description", and "url". Output as a JSON array.`;
             const result = await model.generateContent(prompt);
             const response = await result.response.text();
-            const parsed = JSON.parse(response.replace(/```json\n?|\n```/g, '')) as Suggestion[];
+            const parsed = JSON.parse(response.replace(/```json\n?|\n```/g, ''));
             setSuggestions(parsed);
         } catch (error) {
             console.error('Gemini suggestions error:', error);
@@ -108,7 +83,7 @@ Return the result as a JSON array of strings. Example:
         fetchSuggestions(query);
     }, [query, fetchSuggestions]);
 
-    const handleSearch = async (term: string) => {
+    const handleSearch = async (term) => {
         setQuery(term);
         const params = new URLSearchParams(searchParams);
         if (term) {
@@ -120,21 +95,21 @@ Return the result as a JSON array of strings. Example:
         replace(`${pathname}?${params.toString()}`);
     };
 
-    const handleSuggestionClick = (suggestionText: string) => {
+    const handleSuggestionClick = (suggestionText) => {
         setQuery(suggestionText);
         const params = new URLSearchParams(searchParams);
         params.set('query', suggestionText);
         replace(`${pathname}?${params.toString()}`);
         setSuggestions([]);
-        setToggle(false)
+        setToggle(false);
     };
 
     return (
-        <div className="relative flex w-[45rem] max-h-10 flex-1 flex-shrink-0">
+        <div className="relative flex w-full max-w-[27rem] max-h-10 flex-1 shrink-0">
             <label htmlFor="search" className="sr-only">Search</label>
             <input
                 id="search"
-                className="peer block w-full rounded-md border border-neutral-800 py-[9px] pl-10 text-sm placeholder:text-neutral-400 bg-neutral-900 text-neutral-200 focus:outline-none focus:ring-1 focus:ring-neutral-700 focus:border-neutral-200"
+                className="peer block w-full rounded-md border border-neutral-800/50 py-[9px] pl-10 text-sm placeholder:text-neutral-400 bg-neutral-900 text-neutral-200 focus:outline-none focus:ring-neutral-700"
                 placeholder={placeholder}
                 onChange={(e) => handleSearch(e.target.value.toLowerCase())}
                 value={query}
