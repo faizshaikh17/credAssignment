@@ -1,10 +1,16 @@
 'use client';
 
 import { useSearchParams, usePathname, useRouter } from 'next/navigation';
+import { useState, useEffect, useCallback } from 'react';
 import { Search as Magnify } from 'lucide-react';
-import { useState, useEffect } from 'react';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import data from '@/app/data/data';
+
+type Suggestion = {
+    suggestion: string;
+    description: string;
+    url: string;
+};
 
 export default function Search({ placeholder }: { placeholder: string }) {
     const searchParams = useSearchParams();
@@ -12,44 +18,53 @@ export default function Search({ placeholder }: { placeholder: string }) {
     const { replace } = useRouter();
 
     const [query, setQuery] = useState(searchParams.get('query') || '');
-    const [suggestions, setSuggestions] = useState<any[]>([]);
+    const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
     const cardData = data();
 
-    const genAI = new GoogleGenerativeAI(process.env.NEXT_PUBLIC_GEMINI_API_KEY || '');
-    const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash-lite' });
+    const getModel = () => {
+        const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
+        if (!apiKey) return null;
+        const genAI = new GoogleGenerativeAI(apiKey);
+        return genAI.getGenerativeModel({ model: 'gemini-2.0-flash-lite' });
+    };
 
-    const optimizeQuery = async (inputQuery: string) => {
-        if (!process.env.NEXT_PUBLIC_GEMINI_API_KEY) return [inputQuery];
+    const optimizeQuery = useCallback(async (inputQuery: string): Promise<string[]> => {
+        const model = getModel();
+        if (!model) return [inputQuery];
+
         try {
             const prompt = `Refine this search query for a credit card comparison app: "${inputQuery}". Suggest up to 3 relevant keywords based on this data and make sure you suggest lines or words which are included in this dataset only "${cardData}" (e.g., rewards, cashback, lounge). Output as a JSON array.`;
             const result = await model.generateContent(prompt);
             const response = await result.response.text();
-            return JSON.parse(response.replace(/```json\n|\n```/g, ''));
+            return JSON.parse(response.replace(/```json\n?|\n```/g, ''));
         } catch (error) {
             console.error('Gemini API error:', error);
             return [inputQuery];
         }
-    };
+    }, [cardData]);
 
-    const fetchSuggestions = async (input: string) => {
-        if (!input || !process.env.NEXT_PUBLIC_GEMINI_API_KEY) {
+    const fetchSuggestions = useCallback(async (input: string) => {
+        const model = getModel();
+        if (!input || !model) {
             setSuggestions([]);
             return;
         }
+
         try {
             const prompt = `Generate 4 autocomplete suggestions for the search query "${input}" in a credit card comparison app. Each suggestion should be an object with a "suggestion", "description", and "url". Output as a JSON array.`;
             const result = await model.generateContent(prompt);
             const response = await result.response.text();
-            setSuggestions(JSON.parse(response.replace(/```json\n|\n```/g, '').toString()));
+            const parsed = JSON.parse(response.replace(/```json\n?|\n```/g, '')) as Suggestion[];
+            setSuggestions(parsed);
         } catch (error) {
             console.error('Gemini suggestions error:', error);
             setSuggestions([]);
         }
-    };
+    }, []);
 
     useEffect(() => {
         fetchSuggestions(query);
-    }, [query]);
+    }, [query, fetchSuggestions]);
 
     const handleSearch = async (term: string) => {
         setQuery(term);
