@@ -9,11 +9,25 @@ export default function Search({ placeholder }: { placeholder: string }) {
     const searchParams = useSearchParams();
     const pathname = usePathname();
     const { replace } = useRouter();
-
+type Card = {
+    card_id: string;
+    card_name: string;
+    issuer: string;
+    category: string;
+    image: string;
+    joining_fee: number;
+    annual_fee: number;
+    welcome_benefits: string[];
+    features: string[];
+    rewards: {
+        domestic_spends?: string;
+        international_spends?: string;
+    };
+};
     const [query, setQuery] = useState(searchParams.get('query') || '');
     const [suggestions, setSuggestions] = useState([]);
     const [toggle, setToggle] = useState(false);
-    const cardData = data();
+    const cardData:Card[] = data();
 
     const getModel = () => {
         const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
@@ -27,7 +41,7 @@ export default function Search({ placeholder }: { placeholder: string }) {
         const model = getModel();
         if (!model) return [inputQuery];
 
-        function extractExactPhrases(data) {
+        function extractExactPhrases(data:Card[]) {
             const phraseSet = new Set();
 
             data.forEach(card => {
