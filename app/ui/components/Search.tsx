@@ -9,25 +9,34 @@ export default function Search({ placeholder }: { placeholder: string }) {
     const searchParams = useSearchParams();
     const pathname = usePathname();
     const { replace } = useRouter();
-type Card = {
-    card_id: string;
-    card_name: string;
-    issuer: string;
-    category: string;
-    image: string;
-    joining_fee: number;
-    annual_fee: number;
-    welcome_benefits: string[];
-    features: string[];
-    rewards: {
-        domestic_spends?: string;
-        international_spends?: string;
+    type Card = {
+        card_id: string;
+        card_name: string;
+        issuer: string;
+        category: string;
+        image: string;
+        joining_fee: number;
+        annual_fee: number;
+        welcome_benefits: string[];
+        features: string[];
+        rewards: {
+            domestic_spends?: string;
+            international_spends?: string;
+        };
     };
-};
+
+    type Suggestion = {
+        suggestion: string;
+        description: string;
+        url: string;
+    };
+
     const [query, setQuery] = useState(searchParams.get('query') || '');
-    const [suggestions, setSuggestions] = useState([]);
+
+    const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
+
     const [toggle, setToggle] = useState(false);
-    const cardData:Card[] = data();
+    const cardData: Card[] = data();
 
     const getModel = () => {
         const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
@@ -36,12 +45,12 @@ type Card = {
         return genAI.getGenerativeModel({ model: 'gemini-2.0-flash-lite' });
     };
 
-    const optimizeQuery = useCallback(async (inputQuery:string) => {
+    const optimizeQuery = useCallback(async (inputQuery: string) => {
         setToggle(true);
         const model = getModel();
         if (!model) return [inputQuery];
 
-        function extractExactPhrases(data:Card[]) {
+        function extractExactPhrases(data: Card[]) {
             const phraseSet = new Set();
 
             data.forEach(card => {
@@ -74,7 +83,7 @@ Return the result as a JSON array of strings.`;
         }
     }, [cardData]);
 
-    const fetchSuggestions = useCallback(async (input:string) => {
+    const fetchSuggestions = useCallback(async (input: string) => {
         const model = getModel();
         if (!input || !model) {
             setSuggestions([]);
@@ -97,7 +106,7 @@ Return the result as a JSON array of strings.`;
         fetchSuggestions(query);
     }, [query, fetchSuggestions]);
 
-    const handleSearch = async (term:string) => {
+    const handleSearch = async (term: string) => {
         setQuery(term);
         const params = new URLSearchParams(searchParams);
         if (term) {
@@ -109,7 +118,7 @@ Return the result as a JSON array of strings.`;
         replace(`${pathname}?${params.toString()}`);
     };
 
-    const handleSuggestionClick = (suggestionText:string) => {
+    const handleSuggestionClick = (suggestionText: string) => {
         setQuery(suggestionText);
         const params = new URLSearchParams(searchParams);
         params.set('query', suggestionText);
