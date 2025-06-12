@@ -22,7 +22,7 @@ export default function Search({ placeholder }: { placeholder: string }) {
         return genAI.getGenerativeModel({ model: 'gemini-2.0-flash-lite' });
     };
 
-    const optimizeQuery = useCallback(async (inputQuery) => {
+    const optimizeQuery = useCallback(async (inputQuery:string) => {
         setToggle(true);
         const model = getModel();
         if (!model) return [inputQuery];
@@ -105,11 +105,11 @@ Return the result as a JSON array of strings.`;
     };
 
     return (
-        <div className="relative flex w-full max-w-[25rem] max-h-10 flex-1 shrink-0">
+        <div className="relative flex w-full max-w-[20rem] max-h-10 flex-1 shrink-0">
             <label htmlFor="search" className="sr-only">Search</label>
             <input
                 id="search"
-                className="peer block w-full rounded-md border border-neutral-800/50 py-[9px] pl-10 text-sm placeholder:text-neutral-400 bg-neutral-900 text-neutral-200 focus:outline-none focus:ring-neutral-700"
+                className="peer block w-full rounded-md border border-neutral-800/50 py-[9px] pl-10 text-sm placeholder:text-neutral-400 bg-neutral-900 text-neutral-200 focus:outline-none"
                 placeholder={placeholder}
                 onChange={(e) => handleSearch(e.target.value.toLowerCase())}
                 value={query}
