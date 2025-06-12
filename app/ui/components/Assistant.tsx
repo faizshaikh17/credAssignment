@@ -1,8 +1,9 @@
+
 'use client';
 
 import { useState, useRef, useCallback } from 'react';
 import { Send } from 'lucide-react';
-import { GoogleGenerativeAI } from '@google/generative-ai';
+import { GoogleGenerativeAI, ChatSession } from '@google/generative-ai';
 import data from '@/app/data/data';
 import clsx from 'clsx';
 
@@ -32,8 +33,6 @@ const cardData: Card[] = data();
 const systemPrompt = `
 You are a Credit Card Recommendation Assistant. Always respond in **valid JSON** format using **only the provided credit card dataset**. Use \\n to indicate line breaks within string fields. Based on the user query, choose one of the following response types:
 
-
-
 1. **Recommendation** – Suggest cards based on user preferences:
 {
   "type": "cards",
@@ -58,11 +57,10 @@ You are a Credit Card Recommendation Assistant. Always respond in **valid JSON**
 Do not invent cards or attributes. Always stick strictly to the dataset.
 `;
 
-
 export default function Assistant({ messages, setMessages }: AssistantProps) {
     const [input, setInput] = useState('');
     const [loading, setLoading] = useState(false);
-    const chatRef = useRef<any>(null);
+    const chatRef = useRef<ChatSession | null>(null);
 
     const getChat = useCallback(async () => {
         if (chatRef.current) return chatRef.current;
@@ -122,7 +120,6 @@ ${JSON.stringify(
 
             const reply = JSON.parse(cleaned);
 
-
             if (reply.type === 'cards' || reply.type === 'comparison') {
                 const invalidCards = reply.results.filter(
                     (card: { card_id: string }) => !cardData.some((c) => c.card_id === card.card_id)
@@ -139,7 +136,7 @@ ${JSON.stringify(
         } finally {
             setLoading(false);
         }
-    }, [input, loading, setMessages]);
+    }, [input, loading, setMessages, getChat]);
 
     return (
         <div className="fixed bottom-5 z-50 w-full max-w-xl mx-auto px-4">
@@ -190,5 +187,4 @@ ${JSON.stringify(
             </div>
         </div>
     );
-
 }
