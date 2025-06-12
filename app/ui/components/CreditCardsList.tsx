@@ -253,16 +253,19 @@ export default function SearchWrapper() {
                     ))}
             </div>
             {aiToggle && <Assistant messages={messages} setMessages={setMessages} />}
-            <button className='h-[3rem] w-[3rem] z-50 bg-red-400 fixed bottom-5 right-5 rounded-full cursor-pointer' onClick={() => setAiToggle(prev => !prev)}>
+            <button
+                className="h-[3rem] w-[3rem] z-50 fixed bottom-5 right-5 rounded-full cursor-pointer"
+                onClick={() => setAiToggle((prev) => !prev)}
+            >
                 <Image
-                    src={'/aiImage.png'}
-                    alt={'ai image'}
-                    width={500}
-                    height={300}
-                    className="rounded-full"
-                    priority
+                    src="/aiImage.png"
+                    alt="AI assistant"
+                    width={48}
+                    height={48}
+                    className="rounded-full object-cover"
                 />
             </button>
+
         </>
     );
 }
