@@ -74,7 +74,7 @@ Return the result as a JSON array of strings.`;
         }
     }, [cardData]);
 
-    const fetchSuggestions = useCallback(async (input) => {
+    const fetchSuggestions = useCallback(async (input:string) => {
         const model = getModel();
         if (!input || !model) {
             setSuggestions([]);
@@ -97,7 +97,7 @@ Return the result as a JSON array of strings.`;
         fetchSuggestions(query);
     }, [query, fetchSuggestions]);
 
-    const handleSearch = async (term) => {
+    const handleSearch = async (term:string) => {
         setQuery(term);
         const params = new URLSearchParams(searchParams);
         if (term) {
@@ -109,7 +109,7 @@ Return the result as a JSON array of strings.`;
         replace(`${pathname}?${params.toString()}`);
     };
 
-    const handleSuggestionClick = (suggestionText) => {
+    const handleSuggestionClick = (suggestionText:string) => {
         setQuery(suggestionText);
         const params = new URLSearchParams(searchParams);
         params.set('query', suggestionText);
