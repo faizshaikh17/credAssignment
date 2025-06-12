@@ -140,7 +140,7 @@ ${JSON.stringify(
 
     return (
         <div className="fixed bottom-5 z-50 w-full max-w-xl mx-auto px-4">
-            <div className="flex flex-col gap-2 max-h-[50vh] overflow-y-auto rounded-xl bg-black/80 backdrop-blur-sm p-4 border border-dashed border-neutral-700/60 shadow-2xl scroll-smooth scrollbar-hide transition-all duration-500 hover:shadow-neutral-950/90">
+            {messages.length > 0 && <div className="flex flex-col gap-2 max-h-[50vh] overflow-y-auto rounded-xl bg-black/80 backdrop-blur-sm p-4 border border-dashed border-neutral-700/60 shadow-2xl scroll-smooth scrollbar-hide transition-all duration-500 hover:shadow-neutral-950/90">
                 {messages.map((m, i) => (
                     <div
                         key={i}
@@ -162,7 +162,7 @@ ${JSON.stringify(
                         Thinking...
                     </div>
                 )}
-            </div>
+            </div>}
 
             <div className="flex items-center gap-2 border border-dashed border-neutral-700/60 bg-black/80 backdrop-blur-sm p-2 rounded-xl shadow-lg mt-3 transition-all duration-500 hover:border-neutral-600/70 hover:shadow-neutral-950/90">
                 <input
@@ -178,11 +178,11 @@ ${JSON.stringify(
                     onClick={sendMessage}
                     disabled={!input.trim() || loading}
                     className={clsx(
-                        'p-2 rounded-full bg-gradient-to-r from-blue-600/80 to-blue-700/90 hover:from-blue-500/80 hover:to-blue-600/90 disabled:opacity-50 disabled:cursor-not-allowed',
+                        'p-2.5 rounded-full flex items-center justify-center bg-gradient-to-r from-blue-600/80 to-blue-700/90 hover:from-blue-500/80 hover:to-blue-600/90 disabled:opacity-50 disabled:cursor-not-allowed',
                         'transition-all duration-300 hover:scale-105 shadow-blue-500/40 hover:shadow-blue-600/60'
                     )}
                 >
-                    <Send size={18} className="text-white" />
+                    <Send size={16} className="text-white" />
                 </button>
             </div>
         </div>
