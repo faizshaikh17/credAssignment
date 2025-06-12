@@ -255,7 +255,7 @@ export default function SearchWrapper() {
             {aiToggle && <Assistant messages={messages} setMessages={setMessages} />}
             <button className='h-[3rem] w-[3rem] z-50 bg-red-400 fixed bottom-5 right-5 rounded-full cursor-pointer' onClick={() => setAiToggle(prev => !prev)}>
                 <Image
-                    src={'/aiImage.webp'}
+                    src={'/aiImage.png'}
                     alt={'ai image'}
                     width={500}
                     height={300}
