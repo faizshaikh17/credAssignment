@@ -254,16 +254,30 @@ export default function SearchWrapper() {
             </div>
             {aiToggle && <Assistant messages={messages} setMessages={setMessages} />}
             <button
-                className="h-[3rem] w-[3rem] z-50 fixed bottom-5 right-5 rounded-full cursor-pointer"
+                className="h-[3.2rem] w-[3.2rem] z-50 fixed bottom-5 right-5 rounded-full cursor-pointer p-2.5 flex items-center justify-center bg-gradient-to-r from-neutral-800/80 to-neutral-900/90 disabled:opacity-50 disabled:cursor-not-allowed',
+                        'transition-all duration-300 hover:scale-107 shadow-blue-500/40 hover:shadow-blue-600/60"
                 onClick={() => setAiToggle((prev) => !prev)}
             >
-                <Image
-                    src="/aiImage.png"
-                    alt="AI assistant"
-                    width={48}
-                    height={48}
-                    className="rounded-full object-cover"
-                />
+                <svg
+                    id="logo-35"
+                    width="35"
+                    height="39"
+                    viewBox="0 0 50 39"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="shrink-0"
+                >
+                    <path
+                        d="M16.4992 2H37.5808L22.0816 24.9729H1L16.4992 2Z"
+                        className="ccompli1"
+                        fill="#A3A3A3"
+                    />
+                    <path
+                        d="M17.4224 27.102L11.4192 36H33.5008L49 13.0271H32.7024L23.2064 27.102H17.4224Z"
+                        className="ccustom"
+                        fill="#404040"
+                    />
+                </svg>
             </button>
 
         </>
