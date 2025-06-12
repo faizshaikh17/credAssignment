@@ -1,4 +1,3 @@
-
 export default function data() {
     const cardData = [
         {
@@ -13,14 +12,13 @@ export default function data() {
                 "Complimentary airport lounge access (domestic & international)"
             ],
             "rewards": {
-                "domestic_spends": "4 points per ₹150",
-                "international_spends": "4 points per ₹150"
+                "domestic_spends": "4 points per \u20b9150",
+                "international_spends": "4 points per \u20b9150"
             },
             "features": [
                 "Priority Pass membership",
-                "12 complimentary domestic lounge visits/year",
-                "6 international lounge visits/year",
-                "2% forex markup"
+                "2% forex markup",
+                "12 domestic and 6 international via Priority Pass"
             ],
             "eligibility": {
                 "min_age": 21,
@@ -39,17 +37,17 @@ export default function data() {
             "joining_fee": 12500,
             "annual_fee": 12500,
             "welcome_benefits": [
-                "Voucher worth ₹12,500 (Luxe, Yatra, Postcard Hotels, etc.)"
+                "Voucher worth \u20b912,500 (Luxe, Yatra, Postcard Hotels, etc.)"
             ],
             "rewards": {
-                "domestic_spends": "12 points per ₹200",
-                "international_spends": "12 points per ₹200"
+                "domestic_spends": "12 points per \u20b9200",
+                "international_spends": "12 points per \u20b9200"
             },
             "features": [
-                "Unlimited domestic lounge access (on ₹50k spend/quarter)",
+                "Unlimited domestic lounge access (on \u20b950k spend/quarter)",
                 "12 international lounge visits/year",
                 "25% off on select dining",
-                "BookMyShow: Buy 1 Get 1 (up to ₹500/month)"
+                "BookMyShow: Buy 1 Get 1 (up to \u20b9500/month)"
             ],
             "eligibility": {
                 "min_age": 18,
@@ -59,7 +57,6 @@ export default function data() {
             },
             "apply_url": "https://www.axisbank.com/retail/cards/credit-card/axis-bank-magnus-card",
             "image": "/cc002.webp"
-
         },
         {
             "card_id": "cc003",
@@ -69,12 +66,12 @@ export default function data() {
             "joining_fee": 4999,
             "annual_fee": 4999,
             "welcome_benefits": [
-                "Gift voucher worth ₹5000 (Pantaloons, Yatra, etc.)",
-                "Complimentary movie tickets worth ₹6,000/year"
+                "Gift voucher worth \u20b95000 (Pantaloons, Yatra, etc.)",
+                "Complimentary movie tickets worth \u20b96,000/year"
             ],
             "rewards": {
-                "domestic_spends": "2 points per ₹100",
-                "international_spends": "5 points per ₹100"
+                "domestic_spends": "2 points per \u20b9100",
+                "international_spends": "5 points per \u20b9100"
             },
             "features": [
                 "Club Vistara Silver membership",
@@ -103,11 +100,11 @@ export default function data() {
                 "1 complimentary railway lounge visit/quarter"
             ],
             "rewards": {
-                "domestic_spends": "2 points per ₹100",
-                "international_spends": "4 points per ₹100"
+                "domestic_spends": "2 points per \u20b9100",
+                "international_spends": "4 points per \u20b9100"
             },
             "features": [
-                "1 free movie ticket/month (BookMyShow, up to ₹100)",
+                "1 free movie ticket/month (BookMyShow, up to \u20b9100)",
                 "Up to 15% off on dining",
                 "1% fuel surcharge waiver"
             ],
@@ -128,11 +125,11 @@ export default function data() {
             "joining_fee": 3500,
             "annual_fee": 5000,
             "welcome_benefits": [
-                "Welcome gift worth ₹4,000 (Amex Travel voucher)"
+                "Welcome gift worth \u20b94,000 (Amex Travel voucher)"
             ],
             "rewards": {
-                "domestic_spends": "1 point per ₹50",
-                "milestone_spends": "₹1.9L spend: ₹7,700 Taj voucher; ₹4L spend: ₹11,800 Taj voucher"
+                "domestic_spends": "1 point per \u20b950",
+                "milestone_spends": "\u20b91.9L spend: \u20b97,700 Taj voucher; \u20b94L spend: \u20b911,800 Taj voucher"
             },
             "features": [
                 "4 complimentary domestic lounge visits/year",
@@ -182,7 +179,7 @@ export default function data() {
             "joining_fee": 499,
             "annual_fee": 499,
             "welcome_benefits": [
-                "₹500 cashback on first transaction (T&C apply)"
+                "\u20b9500 cashback on first transaction (T&C apply)"
             ],
             "rewards": {
                 "bill_payments": "5% cashback on Google Pay utility payments",
@@ -209,11 +206,11 @@ export default function data() {
             "joining_fee": 999,
             "annual_fee": 999,
             "welcome_benefits": [
-                "₹2,000 cashback on first transaction"
+                "\u20b92,000 cashback on first transaction"
             ],
             "rewards": {
                 "supermarkets": "5% cashback at supermarkets",
-                "other_spends": "3 points per ₹150"
+                "other_spends": "3 points per \u20b9150"
             },
             "features": [
                 "20% off at partner restaurants",
@@ -240,7 +237,7 @@ export default function data() {
             ],
             "rewards": {
                 "shopping": "10X points on apparel & department stores",
-                "other_spends": "1 point per ₹125"
+                "other_spends": "1 point per \u20b9125"
             },
             "features": [
                 "No expiry on reward points",
@@ -260,23 +257,24 @@ export default function data() {
             "card_name": "IndusInd Bank Platinum Aura Edge Credit Card",
             "issuer": "IndusInd Bank",
             "category": "Rewards",
-            "joining_fee": 500,
-            "annual_fee": 500,
+            "joining_fee": 0,
+            "annual_fee": 0,
             "welcome_benefits": [
-                "Welcome gift vouchers worth ₹1,000"
+                "Welcome gift vouchers worth \u20b91,000"
             ],
             "rewards": {
-                "shopping": "4 points per ₹100 on select categories",
-                "other_spends": "1 point per ₹100"
+                "shopping": "1% cashback on retail",
+                "other_spends": "1% cashback on retail"
             },
             "features": [
                 "Fuel surcharge waiver",
-                "Personal air accident insurance"
+                "Personal air accident insurance",
+                "Available"
             ],
             "eligibility": {
                 "min_age": 21,
                 "max_age": 65,
-                "min_income": 300000,
+                "min_income": 500000,
                 "credit_score": 700
             },
             "apply_url": "https://www.indusind.com/in/en/personal/cards/credit-card/platinum-aura-edge.html",
@@ -290,12 +288,12 @@ export default function data() {
             "joining_fee": 0,
             "annual_fee": 0,
             "welcome_benefits": [
-                "₹2,500 Amazon voucher on minimum spend",
-                "10% cashback on first 3 months (up to ₹2,000)"
+                "\u20b92,500 Amazon voucher on minimum spend",
+                "10% cashback on first 3 months (up to \u20b92,000)"
             ],
             "rewards": {
                 "dining": "5X rewards on dining, hotels, telecom",
-                "other_spends": "2 points per ₹150"
+                "other_spends": "2 points per \u20b9150"
             },
             "features": [
                 "3 complimentary airport lounge visits/year",
@@ -321,8 +319,8 @@ export default function data() {
                 "2,000 reward points on first spend"
             ],
             "rewards": {
-                "domestic_spends": "4 points per ₹150",
-                "international_spends": "4 points per ₹150"
+                "domestic_spends": "4 points per \u20b9150",
+                "international_spends": "4 points per \u20b9150"
             },
             "features": [
                 "2 complimentary domestic lounge visits/quarter",
@@ -345,11 +343,11 @@ export default function data() {
             "joining_fee": 7999,
             "annual_fee": 7999,
             "welcome_benefits": [
-                "Taj voucher worth ₹5,000"
+                "Taj voucher worth \u20b95,000"
             ],
             "rewards": {
-                "domestic_spends": "20 reward points per ₹100 on dining, international spends",
-                "other_spends": "10 reward points per ₹100"
+                "domestic_spends": "20 reward points per \u20b9100 on dining, international spends",
+                "other_spends": "10 reward points per \u20b9100"
             },
             "features": [
                 "8 international & unlimited domestic lounge visits/year",
@@ -372,7 +370,7 @@ export default function data() {
             "joining_fee": 0,
             "annual_fee": 0,
             "welcome_benefits": [
-                "Welcome vouchers worth ₹500"
+                "Welcome vouchers worth \u20b9500"
             ],
             "rewards": {
                 "domestic_spends": "6X points on online spends",
@@ -402,8 +400,8 @@ export default function data() {
                 "8,000 reward points on first spend"
             ],
             "rewards": {
-                "domestic_spends": "2 points per ₹100",
-                "milestone_spends": "20,000 bonus points on annual spends of ₹3.5 lakh"
+                "domestic_spends": "2 points per \u20b9100",
+                "milestone_spends": "20,000 bonus points on annual spends of \u20b93.5 lakh"
             },
             "features": [
                 "2 complimentary domestic lounge visits/quarter",

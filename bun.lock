@@ -7,6 +7,7 @@
         "@google/generative-ai": "^0.24.1",
         "@vercel/analytics": "^1.5.0",
         "clsx": "^2.1.1",
+        "coolshapes-react": "^1.0.1",
         "install": "^0.13.0",
         "lucide": "^0.513.0",
         "lucide-react": "^0.513.0",
@@ -332,6 +333,8 @@
     "color-string": ["color-string@1.9.1", "", { "dependencies": { "color-name": "^1.0.0", "simple-swizzle": "^0.2.2" } }, "sha512-shrVawQFojnZv6xM40anx4CkoDP+fZsw/ZerEMsW/pyzsRbElpsL/DBVW7q3ExxwusdNXI3lXpuhEZkzs8p5Eg=="],
 
     "concat-map": ["concat-map@0.0.1", "", {}, "sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg=="],
+
+    "coolshapes-react": ["coolshapes-react@1.0.1", "", { "peerDependencies": { "react": ">=16.8", "react-dom": ">=16.8" } }, "sha512-ge6hDrOxKDfZsLGAQa8CgcbtGHMtIc5UMwA94b0/c9uwvDIpVmb/VMXUI8Uu09ZYUa86lvnk3Fui2de6dnFdWw=="],
 
     "cross-spawn": ["cross-spawn@7.0.6", "", { "dependencies": { "path-key": "^3.1.0", "shebang-command": "^2.0.0", "which": "^2.0.1" } }, "sha512-uV2QOWP2nWzsy2aMp8aRibhi9dlzF5Hgh5SHaB9OiTGEyDTiJJyx0uy51QXdyWbtAHNua4XJzUKca3OzKUd3vA=="],
 

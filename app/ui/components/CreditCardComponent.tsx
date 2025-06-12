@@ -37,33 +37,21 @@ export default function CreditCardComponent() {
         return [card, ...sameCategory];
     };
 
-    const getCategoryColor = (category: string) => {
-        switch (category.toLowerCase()) {
-            case 'premium':
-                return 'bg-gradient-to-r from-yellow-400/70 to-yellow-500/80 border-yellow-400 text-yellow-950 shadow-yellow-400/40 hover:shadow-yellow-500/60';
-            case 'super premium':
-                return 'bg-gradient-to-r from-purple-500/70 to-purple-600/80 border-purple-400 text-white shadow-purple-400/40 hover:shadow-purple-500/60';
-            case 'entry level':
-                return 'bg-gradient-to-r from-blue-400/70 to-blue-500/80 border-blue-400 text-blue-950 shadow-blue-400/40 hover:shadow-blue-500/60';
-            case 'cashback':
-                return 'bg-gradient-to-r from-green-400/70 to-emerald-500/80 border-green-400 text-green-950 shadow-green-400/40 hover:shadow-green-500/60';
-            case 'rewards':
-                return 'bg-gradient-to-r from-orange-400/70 to-amber-500/80 border-orange-400 text-orange-950 shadow-orange-400/40 hover:shadow-orange-500/60';
-            case 'lifetime free':
-                return 'bg-black/80 border-neutral-900/50 text-neutral-200 shadow-neutral-900/40 hover:shadow-neutral-800/60';
-            case 'travel':
-                return 'bg-gradient-to-r from-teal-400/70 to-cyan-500/80 border-teal-400 text-teal-950 shadow-teal-400/40 hover:shadow-teal-500/60';
-            case 'shopping':
-                return 'bg-gradient-to-r from-pink-400/70 to-rose-500/80 border-pink-400 text-pink-950 shadow-pink-400/40 hover:shadow-pink-500/60';
-            default:
-                return 'bg-black/80 border-neutral-900/50 text-neutral-200 shadow-neutral-900/40 hover:shadow-neutral-800/60';
-        }
+    const categoryStyles: Record<string, string> = {
+        premium: 'from-yellow-400/70 to-yellow-500/80 border-yellow-400 shadow-yellow-400/40 hover:shadow-yellow-500/60',
+        'super premium': 'from-purple-500/70 to-purple-600/80 border-purple-400 shadow-purple-400/40 hover:shadow-purple-500/60',
+        'entry level': 'from-blue-400/70 to-blue-500/80 border-blue-400 shadow-blue-400/40 hover:shadow-blue-500/60',
+        cashback: 'from-green-400/70 to-emerald-500/80 border-green-400 shadow-green-400/40 hover:shadow-green-500/60',
+        rewards: 'from-orange-400/70 to-amber-500/80 border-orange-400 shadow-orange-400/40 hover:shadow-orange-500/60',
+        'lifetime free': 'from-red-400/70 to-red-500/80 border-red-400 shadow-slate-400/40 hover:shadow-red-500/60',
+        travel: 'from-teal-400/70 to-cyan-500/80 border-teal-400 shadow-teal-400/40 hover:shadow-teal-500/60',
+        shopping: 'from-pink-400/70 to-rose-500/80 border-pink-400 shadow-pink-400/40 hover:shadow-pink-500/60',
     };
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-black py-12 px-4">
             <div className="w-full max-w-3xl shadow-2xl overflow-hidden border border-neutral-800 border-dashed bg-black/80 transition-all duration-500 hover:shadow-neutral-950/90 hover:shadow-2xl group backdrop-blur-sm hover:border-neutral-800/70">
-                <div className="absolute inset-0 bg-black/80 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                <div className="absolute inset-0 bg-black/80 transition-opacity duration-500 pointer-events-none"></div>
 
                 <div className="relative px-6 sm:px-8 py-7 bg-black/80 backdrop-blur-sm">
                     <div className="absolute inset-0 bg-black/80 pointer-events-none"></div>
@@ -80,7 +68,7 @@ export default function CreditCardComponent() {
                             </h1>
                             <div className="flex items-center justify-center sm:justify-start gap-3 mt-2">
                                 <span className="text-neutral-400 font-medium group-hover:text-neutral-300 transition-colors duration-300">{card.issuer}</span>
-                                <span className={`relative px-2 py-0.5 font-semibold text-xs rounded-full uppercase border transition-all duration-300 hover:scale-105 shadow-sm overflow-hidden group/tag before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/30 before:to-transparent before:-translate-x-full hover:before:translate-x-full before:transition-transform before:duration-700 ${getCategoryColor(card.category)}`}>
+                                <span className={`relative px-2 py-0.5 font-semibold text-xs rounded-full uppercase border transition-all duration-300 hover:scale-105 shadow-sm overflow-hidden group/tag text-white bg-gradient-to-r before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/30 before:to-transparent before:-translate-x-full hover:before:translate-x-full before:transition-transform before:duration-700 ${categoryStyles[card.category.toLowerCase()] || ''}`}>
                                     <span className="relative z-10">{card.category}</span>
                                 </span>
                             </div>
