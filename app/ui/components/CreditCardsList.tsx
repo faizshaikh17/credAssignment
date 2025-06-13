@@ -8,7 +8,7 @@ import Link from 'next/link';
 import { Gift, Plane, TrendingUp } from 'lucide-react';
 import Search from './Search';
 import clsx from 'clsx';
-import Assistant from './Assistant'
+import Assistant from './Assistant';
 
 type Card = {
     card_id: string;
@@ -42,6 +42,7 @@ export default function SearchWrapper() {
 
     const filteredCards = useMemo(() => {
         let aiRecommendedCardIds: string[] = [];
+        let aiFilterKeywords: string[] = [];
 
         const aiMessages = messages.filter((msg) => msg.role === 'ai');
         if (aiMessages.length > 0) {
@@ -50,45 +51,61 @@ export default function SearchWrapper() {
                 const parsedContent = JSON.parse(lastAiMessage.content);
                 if (parsedContent.type === 'cards' && parsedContent.results) {
                     aiRecommendedCardIds = parsedContent.results.map((card: Card) => card.card_id);
+                } else if (parsedContent.type === 'text' && parsedContent.content) {
+                    const textContent = parsedContent.content.toLowerCase();
+                    aiFilterKeywords = textContent
+                        .match(/\b(forex|international|travel|markup|fees|rewards|spending|domestic|online|offline|cashback|lounge|airport|priority pass|vistara|dining|shopping|fuel|surcharge|waiver|movie|bookmyshow|ticket|voucher|taj|points|amazon|flipkart|myntra|swiggy|zomato|google pay|supermarkets|apparel|hotels|telecom|contactless|insurance|railway|premium|super premium|entry level|lifetime free|income|credit score|age|hdfc|axis|sbi|icici|american express|indusind|hsbc|kotak|au bank|idfc|rbl|standard chartered|citibank|regalia|magnus|elite|coral|platinum|millennia|ace|manhattan|aura|royale|zenith|wealth|maxima)\b/gi) || [];
                 }
             } catch (error) {
                 console.error('Error parsing AI message content:', error);
             }
         }
 
-        if (!query && aiRecommendedCardIds.length === 0) {
+        if (!query && aiRecommendedCardIds.length === 0 && aiFilterKeywords.length === 0) {
             return cardData;
         }
 
         return cardData.filter((card) => {
+            const matchesKeywords = (keywords: string[]): boolean => {
+                if (!keywords.length) return true;
+                return keywords.some((keyword) =>
+                    card.welcome_benefits.some((benefit) => benefit.toLowerCase().includes(keyword)) ||
+                    card.features.some((feature) => feature.toLowerCase().includes(keyword)) ||
+                    (card.rewards.international_spends?.toLowerCase().includes(keyword) ?? false) ||
+                    (card.rewards.domestic_spends?.toLowerCase().includes(keyword) ?? false) ||
+                    card.category.toLowerCase().includes(keyword)
+                );
+            };
+
             if (aiRecommendedCardIds.length > 0) {
                 const isAiRecommended = aiRecommendedCardIds.includes(card.card_id);
-
                 if (query) {
-                    return isAiRecommended && (
-                        card.welcome_benefits.some((benefit) => benefit.toLowerCase().includes(query)) ||
-                        card.features.some((feature) => feature.toLowerCase().includes(query)) ||
-                        Object.entries(card).some(([, value]) => {
-                            let val: string = '';
-
-                            if (typeof value === 'string') {
-                                val = value;
-                            } else if (typeof value === 'number') {
-                                val = value.toString();
-                            } else if (Array.isArray(value)) {
-                                val = value.join(', ');
-                            } else if (value && typeof value === 'object') {
-                                val = Object.values(value)
-                                    .map((v) => (typeof v === 'string' || typeof v === 'number' ? v.toString() : ''))
-                                    .join(', ');
-                            }
-
-                            return val.toLowerCase().includes(query);
-                        })
+                    return (
+                        isAiRecommended &&
+                        (card.welcome_benefits.some((benefit) => benefit.toLowerCase().includes(query)) ||
+                            card.features.some((feature) => feature.toLowerCase().includes(query)) ||
+                            Object.entries(card).some(([, value]) => {
+                                let val: string = '';
+                                if (typeof value === 'string') {
+                                    val = value;
+                                } else if (typeof value === 'number') {
+                                    val = value.toString();
+                                } else if (Array.isArray(value)) {
+                                    val = value.join(', ');
+                                } else if (value && typeof value === 'object') {
+                                    val = Object.values(value)
+                                        .map((v) => (typeof v === 'string' || typeof v === 'number' ? v.toString() : ''))
+                                        .join(', ');
+                                }
+                                return val.toLowerCase().includes(query);
+                            }))
                     );
                 }
-
                 return isAiRecommended;
+            }
+
+            if (aiFilterKeywords.length > 0) {
+                return matchesKeywords(aiFilterKeywords);
             }
 
             if (query) {
@@ -97,7 +114,6 @@ export default function SearchWrapper() {
                     card.features.some((feature) => feature.toLowerCase().includes(query)) ||
                     Object.entries(card).some(([, value]) => {
                         let val: string = '';
-
                         if (typeof value === 'string') {
                             val = value;
                         } else if (typeof value === 'number') {
@@ -109,7 +125,6 @@ export default function SearchWrapper() {
                                 .map((v) => (typeof v === 'string' || typeof v === 'number' ? v.toString() : ''))
                                 .join(', ');
                         }
-
                         return val.toLowerCase().includes(query);
                     })
                 );
