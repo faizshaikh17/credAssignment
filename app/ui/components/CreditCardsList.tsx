@@ -188,7 +188,7 @@ export default function SearchWrapper() {
                 {filteredCards.length > 0 &&
                     filteredCards.map((card) => (
                         <Link href={`/card/${card.card_id}`} key={card.card_id}>
-                            <div className="relative flex flex-col md:flex-row items-stretch bg-black border-b border-t border-dashed border-neutral-700/60 shadow-2xl overflow-hidden transition-all duration-500 hover:shadow-neutral-950/90 hover:shadow-2xl group mt-7 backdrop-blur-sm hover:border-neutral-600/70">
+                            <div className="relative flex flex-col md:flex-row items-stretch bg-black border-b border-t border-dashed border-neutral-700/60 shadow-2xl overflow-hidden transition-all duration-500 hover:shadow-neutral-950/90 hover:shadow-2xl group mt-7 backdrop-blur-sm">
                                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-neutral-400/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
 
                                 <div className="relative w-full flex flex-row md:flex-col items-center md:items-start gap-4 md:gap-6 bg-black p-4 md:p-6 md:w-72 backdrop-blur-sm border-r border-neutral-700/30">
