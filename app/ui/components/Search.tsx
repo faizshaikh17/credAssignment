@@ -3,6 +3,7 @@
 import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { Search as Magnify } from 'lucide-react';
+import { useDebouncedCallback } from 'use-debounce';
 
 export default function Search({ placeholder }: { placeholder: string, }) {
     const searchParams = useSearchParams();
@@ -11,7 +12,7 @@ export default function Search({ placeholder }: { placeholder: string, }) {
 
     const [query, setQuery] = useState(searchParams.get('query') || '');
 
-    const handleSearch = (term: string) => {
+    const handleSearch =  useDebouncedCallback((term:string) => {
         setQuery(term);
         const params = new URLSearchParams(searchParams);
         if (term) {
@@ -20,7 +21,7 @@ export default function Search({ placeholder }: { placeholder: string, }) {
             params.delete('query');
         }
         replace(`${pathname}?${params.toString()}`);
-    };
+    });
 
     return (
         <div className="relative flex w-full max-w-[20rem] max-h-10 flex-1 shrink-0">

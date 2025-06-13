@@ -6,7 +6,7 @@ import { Send } from 'lucide-react';
 import { GoogleGenerativeAI, ChatSession } from '@google/generative-ai';
 import data from '@/app/data/data';
 import clsx from 'clsx';
-
+import { useDebouncedCallback } from 'use-debounce';
 interface Card {
     card_id: string;
     card_name: string;
