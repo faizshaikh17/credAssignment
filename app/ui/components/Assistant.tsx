@@ -27,39 +27,58 @@ interface AssistantProps {
     setMessages: React.Dispatch<React.SetStateAction<Array<{ role: 'user' | 'ai'; content: string }>>>;
 }
 
-const cardData: Card[] = data();
-
-const systemPrompt = `
-You are a Credit Card Recommendation Assistant. Always respond in **valid JSON** format using **only the provided credit card dataset**. Use \\n to indicate line breaks within string fields. Based on the user query, choose one of the following response types:
-
-1. **Recommendation** – Suggest cards based on user preferences:
-{
-  "type": "cards",
-  "results": [/* array of matching card IDs */],
-  "summary": "Brief explanation of why these cards were selected."
-}
-
-2. **Comparison** – Compare specific cards requested by the user:
-{
-  "type": "comparison",
-  "results": [/* array of compared card IDs */],
-  "summary": "High-level comparison summary.",
-  "missing_cards": [/* card names mentioned by user but not found in dataset */]
-}
-
-3. **Explanation** – Answer general questions or clarifications:
-{
-  "type": "text",
-  "content": "Plain-text explanation relevant to the user's query."
-}
-
-Do not invent cards or attributes. Always stick strictly to the dataset.
-`;
-
 export default function Assistant({ messages, setMessages }: AssistantProps) {
     const [input, setInput] = useState('');
     const [loading, setLoading] = useState(false);
     const chatRef = useRef<ChatSession | null>(null);
+    const cardData: Card[] = data();
+
+    const systemPrompt = `
+You are a Credit Card Recommendation Assistant.
+
+Your task is to respond to the user's query using ONLY the provided credit card dataset. Respond strictly in valid JSON format, choosing one of the following response types:
+
+1. Recommendation:
+{
+  "type": "cards",
+  "results": [/* array of matching cards */],
+  "summary": "Clear explanation of why these cards were selected, with key features and benefits for each."
+}
+
+2. Comparison (up to 4 cards):
+{
+  "type": "comparison",
+  "results": [/* array of matched cards */],
+  "summary": "Detailed comparison summary highlighting key differences and which card suits whom.",
+  "missing_cards": [/* card names requested but not found */]
+}
+
+3. General Explanation:
+{
+  "type": "text",
+  "content": "Direct plain-text explanation relevant to the user's query."
+}
+
+— Use fuzzy matching for card names when comparing.
+— Provide concise but informative summaries for each card.
+— Do NOT invent cards or attributes not present in the dataset.
+
+Dataset:
+${JSON.stringify(cardData, null, 2)}
+
+User query: "${input}"
+
+Examples:
+- "Show me cards with lounge access" → type: "cards"
+- "Compare Axis Magnus vs HDFC Regalia vs ICICI Amazon Pay" → type: "comparison"
+- "What is a credit card annual fee?" → type: "text"
+
+Formatting rules:
+- No markdown or special symbols (e.g., *, •)
+- Use plain paragraphs with \\n for line breaks
+- Language must be simple, clean, and professional
+- Always return a complete JSON object with correct type and fields
+`;
 
     const getChat = useCallback(async () => {
         if (chatRef.current) return chatRef.current;
@@ -93,21 +112,19 @@ export default function Assistant({ messages, setMessages }: AssistantProps) {
         }
 
         try {
-            const fullMessage = `
-### User Query
-"${input.trim()}"
+            const inputLower = input.toLowerCase();
+            const relevantCards = cardData.filter(
+                (card) =>
+                    inputLower.includes("forex") ||
+                    card.features.some((f) => f.toLowerCase().includes("forex"))
+            );
 
-### Credit Card Data
-${JSON.stringify(
-                cardData.filter(
-                    (card) =>
-                        card.card_name.toLowerCase().includes(input.toLowerCase()) ||
-                        card.features.some((f) => f.toLowerCase().includes(input.toLowerCase()))
-                ),
-                null,
-                2
-            )}
-      `;
+            const fullMessage = `
+            ### User Query
+            "${input.trim()}"
+
+            ### Credit Card Data
+            ${JSON.stringify(relevantCards, null, 2)}`;
 
             const result = await chat.sendMessage(fullMessage);
 

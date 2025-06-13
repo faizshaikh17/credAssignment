@@ -30,6 +30,7 @@ export default function SearchWrapper() {
     const cardData: Card[] = data();
     const searchParams = useSearchParams();
     const [messages, setMessages] = useState<{ role: 'user' | 'ai'; content: string }[]>([]);
+
     const query = (searchParams.get('query') || '').toLowerCase();
 
     const formatCurrency = (amount: number): string =>
@@ -40,59 +41,82 @@ export default function SearchWrapper() {
         }).format(amount);
 
     const filteredCards = useMemo(() => {
-        if (!query) return cardData;
+        let aiRecommendedCardIds: string[] = [];
 
-        const aiCards = messages
-            .filter((msg) => msg.role === 'ai' && msg.content.toLowerCase().includes(query))
-            .reverse()
-            .reduce((acc, msg) => {
-                try {
-                    const parsed = JSON.parse(msg.content);
-                    if (parsed.type === 'cards' && Array.isArray(parsed.results)) {
-                        return parsed.results.filter((card: { card_name: string; forex_markup: string }) =>
-                            [card.card_name, card.forex_markup].some(
-                                (value) => value?.toLowerCase().includes(query)
-                            )
-                        );
-                    }
-                } catch {
-                    return acc;
+        const aiMessages = messages.filter((msg) => msg.role === 'ai');
+        if (aiMessages.length > 0) {
+            const lastAiMessage = aiMessages[aiMessages.length - 1];
+            try {
+                const parsedContent = JSON.parse(lastAiMessage.content);
+                if (parsedContent.type === 'cards' && parsedContent.results) {
+                    aiRecommendedCardIds = parsedContent.results.map((card: Card) => card.card_id);
                 }
-                return acc;
-            }, [] as { card_id: string; card_name: string; forex_markup: string }[]);
+            } catch (error) {
+                console.error('Error parsing AI message content:', error);
+            }
+        }
 
-        const localCards = cardData.filter(
-            (card) =>
-                card.welcome_benefits.some((benefit) => benefit.toLowerCase().includes(query)) ||
-                card.features.some((feature) => feature.toLowerCase().includes(query)) ||
-                Object.entries(card).some(([, value]) => {
-                    let val: string = '';
+        if (!query && aiRecommendedCardIds.length === 0) {
+            return cardData;
+        }
 
-                    if (typeof value === 'string') {
-                        val = value;
-                    } else if (typeof value === 'number') {
-                        val = value.toString();
-                    } else if (Array.isArray(value)) {
-                        val = value.join(', ');
-                    } else if (value && typeof value === 'object') {
-                        val = Object.values(value)
-                            .map((v) => (typeof v === 'string' || typeof v === 'number' ? v.toString() : ''))
-                            .join(', ');
-                    }
+        return cardData.filter((card) => {
+            if (aiRecommendedCardIds.length > 0) {
+                const isAiRecommended = aiRecommendedCardIds.includes(card.card_id);
 
-                    return val.toLowerCase().includes(query);
-                })
-        );
+                if (query) {
+                    return isAiRecommended && (
+                        card.welcome_benefits.some((benefit) => benefit.toLowerCase().includes(query)) ||
+                        card.features.some((feature) => feature.toLowerCase().includes(query)) ||
+                        Object.entries(card).some(([, value]) => {
+                            let val: string = '';
 
-        const aiCardIds = aiCards.map((card) => card.card_id);
-        const combinedCards = [
-            ...aiCards
-                .map((aiCard) => cardData.find((card) => card.card_id === aiCard.card_id))
-                .filter((card): card is Card => !!card),
-            ...localCards.filter((card) => !aiCardIds.includes(card.card_id)),
-        ];
+                            if (typeof value === 'string') {
+                                val = value;
+                            } else if (typeof value === 'number') {
+                                val = value.toString();
+                            } else if (Array.isArray(value)) {
+                                val = value.join(', ');
+                            } else if (value && typeof value === 'object') {
+                                val = Object.values(value)
+                                    .map((v) => (typeof v === 'string' || typeof v === 'number' ? v.toString() : ''))
+                                    .join(', ');
+                            }
 
-        return combinedCards;
+                            return val.toLowerCase().includes(query);
+                        })
+                    );
+                }
+
+                return isAiRecommended;
+            }
+
+            if (query) {
+                return (
+                    card.welcome_benefits.some((benefit) => benefit.toLowerCase().includes(query)) ||
+                    card.features.some((feature) => feature.toLowerCase().includes(query)) ||
+                    Object.entries(card).some(([, value]) => {
+                        let val: string = '';
+
+                        if (typeof value === 'string') {
+                            val = value;
+                        } else if (typeof value === 'number') {
+                            val = value.toString();
+                        } else if (Array.isArray(value)) {
+                            val = value.join(', ');
+                        } else if (value && typeof value === 'object') {
+                            val = Object.values(value)
+                                .map((v) => (typeof v === 'string' || typeof v === 'number' ? v.toString() : ''))
+                                .join(', ');
+                        }
+
+                        return val.toLowerCase().includes(query);
+                    })
+                );
+            }
+
+            return false;
+        });
     }, [cardData, query, messages]);
 
     const categoryStyles: Record<string, string> = {
@@ -254,8 +278,7 @@ export default function SearchWrapper() {
             </div>
             {aiToggle && <Assistant messages={messages} setMessages={setMessages} />}
             <button
-                className="h-[3.2rem] w-[3.2rem] z-50 fixed bottom-5 right-5 rounded-full cursor-pointer p-2.5 flex items-center justify-center bg-gradient-to-r from-neutral-800/80 to-neutral-900/90 disabled:opacity-50 disabled:cursor-not-allowed',
-                        'transition-all duration-300 hover:scale-107 shadow-blue-500/40 hover:shadow-blue-600/60"
+                className="h-[3.2rem] w-[3.2rem] z-50 fixed bottom-5 right-5 rounded-full cursor-pointer p-2.5 flex items-center justify-center bg-gradient-to-r from-neutral-800/80 to-neutral-900/90 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 hover:scale-105 shadow-blue-500/40 hover:shadow-blue-600/60"
                 onClick={() => setAiToggle((prev) => !prev)}
             >
                 <svg
@@ -279,7 +302,6 @@ export default function SearchWrapper() {
                     />
                 </svg>
             </button>
-
         </>
     );
 }
