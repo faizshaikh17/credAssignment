@@ -174,7 +174,7 @@ Formatting rules:
         </div>
       )}
 
-      <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 border border-dashed border-neutral-700/60 bg-black/80 backdrop-blur-sm p-2 rounded-xl shadow-lg mt-3 transition-all duration-500 hover:border-neutral-600/70 hover:shadow-neutral-950/90">
+      <div className="flex flex-col mx-2 sm:flex-row items-stretch sm:items-center gap-2 border border-dashed border-neutral-700/60 bg-black/80 backdrop-blur-sm p-2 rounded-xl shadow-lg mt-3 transition-all duration-500 hover:border-neutral-600/70 hover:shadow-neutral-950/90">
         <input
           type="text"
           className="flex-1 bg-transparent outline-none text-white placeholder:text-neutral-500 px-3 py-2 text-sm font-medium"
