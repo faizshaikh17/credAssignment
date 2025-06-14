@@ -169,7 +169,7 @@ Formatting rules:
 
       const aiContent = JSON.stringify(reply);
       setMessages((prev) => {
-        const updated = [...prev, { role: 'ai', content: aiContent }];
+        const updated = [...prev, { role: 'ai', content: aiContent } as const];
         setTimeout(() => summarizeAiJson(aiContent, updated.length - 1), 0);
         return updated;
       });
