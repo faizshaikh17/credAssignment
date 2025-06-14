@@ -30,6 +30,7 @@ interface AssistantProps {
 export default function Assistant({ messages, setMessages }: AssistantProps) {
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
+  const [summaries, setSummaries] = useState<string[]>([]);
   const chatRef = useRef<ChatSession | null>(null);
   const cardData: Card[] = data();
 
@@ -92,7 +93,37 @@ Formatting rules:
     });
     chatRef.current = chat;
     return chat;
+  }, [systemPrompt]);
+
+  const summarizeAiJson = useCallback(async (jsonText: string, index: number) => {
+    try {
+      const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
+      if (!apiKey) return;
+      const genAI = new GoogleGenerativeAI(apiKey);
+      const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
+
+      const result = await model.generateContent([
+        `Summarize the following as if you're explaining it directly to a user. Write in plain, natural English using paragraph form and line breaks. Do not mention that the data came from JSON or any technical format. Just describe the key details clearly and conversationally, without using bullet points, lists, or code formatting.\n\n${jsonText}`
+      ]);
+
+
+
+      const summaryText = result.response.text().trim();
+      setSummaries((prev) => {
+        const updated = [...prev];
+        updated[index] = summaryText;
+        return updated;
+      });
+    } catch (err) {
+      console.error('Summary error:', err);
+      setSummaries((prev) => {
+        const updated = [...prev];
+        updated[index] = '[Failed to summarize AI response]';
+        return updated;
+      });
+    }
   }, []);
+
 
   const sendMessage = useCallback(async () => {
     if (!input.trim() || loading) return;
@@ -136,7 +167,12 @@ Formatting rules:
         if (invalidCards.length > 0) throw new Error('Invalid cards in response');
       }
 
-      setMessages((prev) => [...prev, { role: 'ai', content: JSON.stringify(reply) }]);
+      const aiContent = JSON.stringify(reply);
+      setMessages((prev) => {
+        const updated = [...prev, { role: 'ai', content: aiContent }];
+        setTimeout(() => summarizeAiJson(aiContent, updated.length - 1), 0);
+        return updated;
+      });
     } catch (err) {
       setMessages((prev) => [
         ...prev,
@@ -145,7 +181,7 @@ Formatting rules:
     } finally {
       setLoading(false);
     }
-  }, [input, loading, setMessages, getChat]);
+  }, [input, loading, setMessages, getChat, cardData, summarizeAiJson]);
 
   return (
     <div className="fixed bottom-5 z-50 w-full px-2 sm:px-4 max-w-full sm:max-w-xl mx-auto">
@@ -163,7 +199,11 @@ Formatting rules:
               )}
             >
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-              {m.content}
+              {m.role === 'ai' ? (
+                summaries[i] ? summaries[i] : 'Summarizing...'
+              ) : (
+                m.content
+              )}
             </div>
           ))}
           {loading && (
