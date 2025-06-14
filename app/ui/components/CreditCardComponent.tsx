@@ -55,7 +55,7 @@ export default function CreditCardComponent() {
             <div className="min-h-screen relative flex flex-col items-center justify-center bg-black py-12 px-4">
                 <div className='flex sticky py-2 top-0 z-10 bg-black w-full max-w-3xl justify-start'>
                     <Link href={'/'}>
-                        <div className='text-3xl'>←</div>
+                        <div className='text-3xl text-white'>←</div>
                     </Link>
                 </div>
                 <div className="w-full max-w-3xl shadow-2xl overflow-hidden border border-neutral-800 border-dashed bg-black/80 transition-all duration-500 hover:shadow-neutral-950/90 hover:shadow-2xl group backdrop-blur-sm hover:border-neutral-800/70">
